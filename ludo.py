@@ -100,6 +100,260 @@ body.theme-neon #board{border:2px solid #0ff8;box-shadow:0 0 30px #0ff4}
 body.theme-neon button{background:linear-gradient(180deg,#1a1a3a,#0d0d22);color:#0ff;border:1px solid #0ff8;box-shadow:0 0 10px #0ff4}
 body.theme-neon .ov{background:rgba(0,0,10,.7)}
 
+
+
+
+/* ========== LIVE VOICE (WebRTC group call, low-latency) ========== */
+const RTC_CFG = {
+  iceServers: [
+    {urls: 'stun:stun.l.google.com:19302'},
+    {urls: 'stun:stun1.l.google.com:19302'}
+  ],
+  bundlePolicy: 'max-bundle',
+  rtcpMuxPolicy: 'require',
+  iceCandidatePoolSize: 2
+};
+let localStream = null;
+let voiceOn = false;
+let voiceMuted = false;
+const peers = {};   // remote client id -> {pc, audio}
+
+/** Prefer short Opus frames + in-band FEC for lower mouth-to-ear delay */
+function mungeOpus(sdp) {
+  if (!sdp) return sdp;
+  // Force 10ms packets and FEC when Opus (payload often 111) is present
+  sdp = sdp.replace(/a=fmtp:(\d+) (.*)/g, (line, pt, rest) => {
+    if (/opus/i.test(sdp.split(pt)[0].slice(-80)) || /a=rtpmap:\s*\1 opus/i.test(sdp) || rest.includes('minptime') || rest.includes('useinbandfec')) {
+      let r = rest;
+      if (!/useinbandfec=/.test(r)) r += ';useinbandfec=1';
+      if (!/stereo=/.test(r)) r += ';stereo=0';
+      if (!/maxaveragebitrate=/.test(r)) r += ';maxaveragebitrate=24000';
+      // ptime is a session-level attr; also set minptime
+      if (!/minptime=/.test(r)) r += ';minptime=10';
+      return 'a=fmtp:' + pt + ' ' + r;
+    }
+    return line;
+  });
+  if (!/a=ptime:/.test(sdp)) {
+    sdp = sdp.replace(/(m=audio .+\r?\n)/, '$1a=ptime:10\r\na=maxptime:20\r\n');
+  } else {
+    sdp = sdp.replace(/a=ptime:\d+/g, 'a=ptime:10');
+  }
+  return sdp;
+}
+
+function showVoiceBtn(on) {
+  const b = $('#voiceBtn');
+  if (!b) return;
+  b.style.display = on ? 'flex' : 'none';
+  if (!on) hangupVoice();
+}
+function setVoiceUI() {
+  const b = $('#voiceBtn');
+  if (!b) return;
+  b.classList.toggle('on', voiceOn && !voiceMuted);
+  b.classList.toggle('muted', voiceOn && voiceMuted);
+  b.textContent = !voiceOn ? '🎤' : (voiceMuted ? '🔇' : '🎤');
+  const h = $('#voiceHint');
+  if (h) {
+    if (!voiceOn) h.style.display = 'none';
+    else {
+      h.style.display = 'block';
+      h.textContent = voiceMuted ? 'Mic muted · tap to unmute' : 'Live · tap to mute · hold to hang up';
+    }
+  }
+}
+async function ensureMic() {
+  if (localStream) return localStream;
+  // Low-latency capture constraints
+  localStream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: true,
+      channelCount: 1,
+      sampleRate: 48000,
+      latency: 0.01          // hint; ignored if unsupported
+    },
+    video: false
+  });
+  // Prefer speech bitrate on the sender later via encodings
+  return localStream;
+}
+function hangupVoice() {
+  voiceOn = false; voiceMuted = false;
+  Object.keys(peers).forEach(id => closePeer(id));
+  if (localStream) {
+    localStream.getTracks().forEach(t => t.stop());
+    localStream = null;
+  }
+  setVoiceUI();
+  const el = $('#voicePlay'); if (el) el.style.display = 'none';
+}
+function closePeer(id) {
+  const p = peers[id];
+  if (!p) return;
+  try { p.pc.close(); } catch (e) {}
+  if (p.audio && p.audio.parentNode) p.audio.remove();
+  delete peers[id];
+}
+function tuneReceiver(pc) {
+  try {
+    pc.getReceivers().forEach(r => {
+      if (r.track && r.track.kind === 'audio') {
+        // Chrome: prefer low playout delay (~20ms)
+        if ('playoutDelayHint' in r) r.playoutDelayHint = 0.02;
+        // Newer: jitterBufferTarget in seconds
+        if ('jitterBufferTarget' in r) r.jitterBufferTarget = 0.03;
+      }
+    });
+  } catch (e) {}
+}
+async function createPeer(remoteId, polite) {
+  if (!remoteId || (me && remoteId === me.id) || peers[remoteId]) return peers[remoteId];
+  const pc = new RTCPeerConnection(RTC_CFG);
+  const entry = {pc, audio: null, polite: !!polite, makingOffer: false};
+  peers[remoteId] = entry;
+
+  if (localStream) {
+    localStream.getTracks().forEach(t => {
+      const sender = pc.addTrack(t, localStream);
+      // Prefer low-latency speech encoding when supported
+      try {
+        const params = sender.getParameters();
+        if (!params.encodings || !params.encodings.length) params.encodings = [{}];
+        params.encodings[0].maxBitrate = 24000;
+        params.encodings[0].priority = 'high';
+        params.encodings[0].networkPriority = 'high';
+        sender.setParameters(params).catch(() => {});
+      } catch (e) {}
+    });
+  }
+
+  pc.onicecandidate = e => {
+    if (e.candidate) {
+      post({t: 'rtc', kind: 'ice', to: remoteId, ice: e.candidate.toJSON()});
+    }
+  };
+  pc.ontrack = e => {
+    let audio = entry.audio;
+    if (!audio) {
+      audio = document.createElement('audio');
+      audio.autoplay = true;
+      audio.playsInline = true;
+      audio.setAttribute('playsinline', '');
+      // Avoid extra media-element buffering where possible
+      try { audio.preload = 'none'; } catch (err) {}
+      document.body.appendChild(audio);
+      entry.audio = audio;
+    }
+    audio.srcObject = e.streams[0];
+    audio.play().catch(() => {});
+    tuneReceiver(pc);
+    const el = $('#voicePlay');
+    if (el) { el.style.display = 'block'; el.textContent = '🔊 Voice connected'; }
+  };
+  pc.onconnectionstatechange = () => {
+    if (pc.connectionState === 'connected') tuneReceiver(pc);
+  };
+
+  return entry;
+}
+async function makeOffer(remoteId) {
+  const entry = await createPeer(remoteId, false);
+  if (!entry || entry.makingOffer) return;
+  entry.makingOffer = true;
+  try {
+    const offer = await entry.pc.createOffer({offerToReceiveAudio: true, voiceActivityDetection: true});
+    let sdp = mungeOpus(offer.sdp);
+    await entry.pc.setLocalDescription({type: 'offer', sdp});
+    post({t: 'rtc', kind: 'offer', to: remoteId, sdp: entry.pc.localDescription.sdp});
+  } catch (e) {}
+  entry.makingOffer = false;
+}
+async function handleRtc(d) {
+  if (!voiceOn || !me || d.from === me.id) return;
+  const from = d.from;
+  if (d.kind === 'hello') {
+    if (me.id < from) makeOffer(from);
+    else createPeer(from, true);
+    return;
+  }
+  if (d.kind === 'bye') {
+    closePeer(from);
+    return;
+  }
+  let entry = peers[from];
+  if (d.kind === 'offer') {
+    entry = await createPeer(from, true);
+    try {
+      const sdp = mungeOpus(d.sdp);
+      await entry.pc.setRemoteDescription({type: 'offer', sdp});
+      const ans = await entry.pc.createAnswer();
+      const ansSdp = mungeOpus(ans.sdp);
+      await entry.pc.setLocalDescription({type: 'answer', sdp: ansSdp});
+      post({t: 'rtc', kind: 'answer', to: from, sdp: entry.pc.localDescription.sdp});
+      tuneReceiver(entry.pc);
+    } catch (e) {}
+  } else if (d.kind === 'answer' && entry) {
+    try {
+      await entry.pc.setRemoteDescription({type: 'answer', sdp: mungeOpus(d.sdp)});
+      tuneReceiver(entry.pc);
+    } catch (e) {}
+  } else if (d.kind === 'ice' && entry && d.ice) {
+    try { await entry.pc.addIceCandidate(d.ice); } catch (e) {}
+  }
+}
+async function toggleVoice() {
+  if (!ONLINE || !me) return;
+  if (voiceOn) {
+    if (!voiceMuted) {
+      voiceMuted = true;
+      if (localStream) localStream.getAudioTracks().forEach(t => t.enabled = false);
+    } else {
+      voiceMuted = false;
+      if (localStream) localStream.getAudioTracks().forEach(t => t.enabled = true);
+    }
+    setVoiceUI();
+    return;
+  }
+  try {
+    await ensureMic();
+    voiceOn = true; voiceMuted = false;
+    setVoiceUI();
+    post({t: 'rtc', kind: 'hello'});
+  } catch (err) {
+    alert('Allow microphone to use live voice chat');
+    hangupVoice();
+  }
+}
+(function () {
+  const btn = $('#voiceBtn');
+  if (!btn) return;
+  let tmr = null, long = false;
+  const start = e => {
+    long = false;
+    tmr = setTimeout(() => {
+      long = true;
+      if (voiceOn) {
+        hangupVoice();
+        post({t: 'rtc', kind: 'bye'});
+        const h = $('#voiceHint');
+        if (h) { h.style.display = 'block'; h.textContent = 'Call ended'; setTimeout(() => h.style.display = 'none', 1500); }
+      }
+    }, 650);
+  };
+  const end = e => {
+    clearTimeout(tmr);
+    if (!long) toggleVoice();
+  };
+  btn.addEventListener('mousedown', start);
+  btn.addEventListener('mouseup', end);
+  btn.addEventListener('mouseleave', () => clearTimeout(tmr));
+  btn.addEventListener('touchstart', e => { e.preventDefault(); start(e); }, {passive: false});
+  btn.addEventListener('touchend', e => { e.preventDefault(); end(e); });
+})();
+function playVoice(){ /* legacy short clips unused in live mode */ }
 /* ========== CHAT ========== */
 #chatBtn{position:fixed;bottom:14px;right:14px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007}
 #chatPanel{position:fixed;bottom:70px;right:12px;width:min(92vw,320px);max-height:45vh;z-index:40;display:none;flex-direction:column;border-radius:16px;overflow:hidden}
@@ -113,9 +367,15 @@ body.theme-neon .ov{background:rgba(0,0,10,.7)}
 body.theme-classic #chatIn{background:rgba(255,255,255,.7);color:#3a2210}
 #chatSend{padding:8px 12px;border-radius:10px;font-size:13px}
 #chatBadge{position:absolute;top:-4px;right:-4px;background:#f44;color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center}
-#themePick{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
-#themePick button{padding:8px 14px;border-radius:12px;font-size:13px;opacity:.7}
-#themePick button.on{opacity:1;outline:2px solid #fff;outline-offset:2px}
+#voiceBtn{position:fixed;bottom:14px;right:70px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:20px;display:none;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007;touch-action:none;user-select:none}
+#voiceBtn.on{background:linear-gradient(180deg,#2de08a,#1a9e5c)!important;box-shadow:0 0 18px #2de08a99}
+#voiceBtn.muted{background:linear-gradient(180deg,#666,#444)!important;opacity:.85}
+#voiceHint{position:fixed;bottom:70px;right:12px;z-index:41;background:rgba(0,0,0,.8);color:#fff;padding:8px 12px;border-radius:12px;font-size:12px;display:none;pointer-events:none;max-width:70vw;text-align:center}
+#voicePlay{position:fixed;bottom:70px;left:12px;z-index:40;max-width:50vw;font-size:12px;padding:6px 10px;border-radius:12px;display:none;background:rgba(0,0,0,.7);color:#fff}
+
+#themePick{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 12px}
+#themePick button{padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700;opacity:.75;min-width:90px}
+#themePick button.on{opacity:1;outline:3px solid #fff;outline-offset:2px;transform:scale(1.05)}
 
 /* player tag in each start box: first 3 letters, glossy gold lettering. Back layer = outline + stacked edge + soft shadow,
    front layer = gold gradient with a diagonal sheen and a thin bright rim */
@@ -298,23 +558,26 @@ body.lite .dm svg{filter:none}
 <div id="setup" class="ov"><div class="glass">
   <h2 style="margin:0 0 2px">🎲 New Game</h2>
   <div class="by">Developed by Yoginder Singh Negi</div>
-  <div style="font-size:13px;opacity:.9">Choose corners, player type and a name for each human player (first 3 letters shown in their start box)</div>
-  <div id="presets"><button data-p="d1">2P ⤡ Red–Yellow</button><button data-p="d2">2P ⤢ Green–Blue</button><button data-p="p3">3 Players</button><button data-p="p4">4 Players</button></div>
-  <div id="opts"></div>
-  <div class="row"><span>🏁 Win by getting</span><select id="winN"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
-  <div style="font-size:12px;opacity:.8">Tip: with 2 players use opposite corners.</div>
-  <div style="margin:10px 0 4px;font-size:13px;opacity:.85;text-align:center">Board theme</div>
+  <div style="margin:8px 0 2px;font-size:14px;font-weight:700;text-align:center">🎨 Board theme</div>
   <div id="themePick">
     <button type="button" data-theme="glass" class="on">✨ Glass</button>
     <button type="button" data-theme="classic">🎲 Classic</button>
     <button type="button" data-theme="neon">💜 Neon</button>
   </div>
+  <div style="font-size:13px;opacity:.9;margin-top:10px">Choose corners, player type and a name for each human player (first 3 letters shown in their start box)</div>
+  <div id="presets"><button data-p="d1">2P ⤡ Red–Yellow</button><button data-p="d2">2P ⤢ Green–Blue</button><button data-p="p3">3 Players</button><button data-p="p4">4 Players</button></div>
+  <div id="opts"></div>
+  <div class="row"><span>🏁 Win by getting</span><select id="winN"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
+  <div style="font-size:12px;opacity:.8">Tip: with 2 players use opposite corners.</div>
   <button id="go">▶ Start Game</button>
   <div style="margin-top:12px"><button id="goOnline" style="background:linear-gradient(90deg,#2de08a88,#4dabff88);font-size:17px">🌐 Play Online with Friends</button></div>
   <div id="srvStat" class="by" style="margin-top:10px"></div>
   <div style="margin-top:10px"><button id="goStats" style="background:linear-gradient(90deg,#ffd23f77,#ff4d6d77);font-size:16px">🏆 Leaderboard &amp; Stats</button></div>
 </div></div>
 
+<button id="voiceBtn" title="Voice call">🎤</button>
+<div id="voiceHint"></div>
+<div id="voicePlay"></div>
 <button id="chatBtn" class="hide" title="Chat">💬<span id="chatBadge">0</span></button>
 <div id="chatPanel" class="glass">
   <div id="chatLog"></div>
@@ -837,7 +1100,7 @@ const onErr=t=>{$('#onErr').textContent=t||''};
 const inviteUrl=()=>(location.protocol==='file:'?(BASE||location.origin)+'/':location.origin+location.pathname.replace(/index\.html$/,''))+`?room=${me.room}`;
 function enter(res){if(res.error){onErr(res.error);return}
   nextRoll=0;selfRolls=0;predicted.length=0;outAt=0;
-  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false,name:($('#pname').value||'').trim()||'Player'};lastN=0;started=false;names={};showChatBtn(true);
+  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false,name:($('#pname').value||'').trim()||'Player'};lastN=0;started=false;names={};showChatBtn(true);showVoiceBtn(true);
   try{localStorage.setItem('ludoSess',JSON.stringify({room:me.room,id:me.id,name:$('#pname').value.trim()}))}catch(e){}
   $('#onJoin').classList.add('hide');$('#onLobby').classList.remove('hide');$('#rc').textContent=me.room;connect()}
 function connect(){pollGen++;synced=false;FAST=true;openWS(pollGen);pingLoop(pollGen)}
@@ -885,6 +1148,8 @@ function handle(d){
     MQ.length=0;$('#online').classList.add('hide');$('#setup').classList.add('hide');$('#win').classList.add('hide');newGame()}
   else if(d.t==='resync'){if(!FAST&&synced&&(d.hard||Date.now()-lastResync>8000)){if(d.hard)hardRejoin();else resyncNow('requested by '+pn(d.c))}}   /* someone pressed Sync (ignored while replaying, and by the phone that pressed it) */
   else if(d.t==='chat'){addChatMsg(d.name||pn(d.c),d.text,d.c)}
+  else if(d.t==='voice'){playVoice(d.name||pn(d.c),d.data,d.mime,d.c)}
+  else if(d.t==='rtc'){handleRtc(d)}
   else if(d.t==='roll'||d.t==='move'||d.t==='skip'||d.t==='finish'||d.t==='left'){MQ.push(d);if(!qrun)runQ()}}
 function renderPick(){const b=$('#pick');b.innerHTML='';['red','green','blue','yellow'].forEach(c=>{const x=document.createElement('button');
   const taken=!!lobbySeats[c]&&c!==me.color;x.style.cssText=`background:${HEX[c]};border:3px solid ${c===me.color?'#fff':'transparent'};border-radius:14px;opacity:${taken?.25:1}`;
@@ -993,7 +1258,7 @@ if(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&
 if(LITE==='1')setLite(true);else if(LITE==='0')setLite(false);
 else{setLite((navigator.hardwareConcurrency||8)<=4);   // slow phones: switch effects off automatically
   let fr=0;const t0=performance.now();(function f(){fr++;const dt=performance.now()-t0;if(dt<1500)requestAnimationFrame(f);else if(fr/(dt/1000)<40)setLite(true)})()}
-function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showChatBtn(false);const log=$('#chatLog');if(log)log.innerHTML=''}
+function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showChatBtn(false);showVoiceBtn(false);hangupVoice();const log=$('#chatLog');if(log)log.innerHTML=''}
 $('#again').addEventListener('click',()=>{leaveOnline();$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')});
 function askServer(){const v=prompt('Enter your game server address, e.g. https://your-name.onrender.com');if(!v)return false;
   const b=normBase(v);if(!b){alert('That address does not look right');return false}BASE=b;try{localStorage.setItem('ludoServer',BASE)}catch(e){}return true}
@@ -1051,6 +1316,100 @@ function applyTheme(name){
   });
 })();
 
+
+/* ========== VOICE (push-to-talk) ========== */
+let mediaRec=null, recChunks=[], recStream=null, voiceSending=false;
+function showVoiceBtn(on){
+  const b=$('#voiceBtn');
+  if(!b)return;
+  b.style.display = on ? 'flex' : 'none';
+  if(!on) stopRec(true);
+}
+async function startRec(){
+  if(voiceSending || !ONLINE || !me) return;
+  try{
+    if(!recStream){
+      recStream = await navigator.mediaDevices.getUserMedia({audio:true});
+    }
+    recChunks = [];
+    const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus'
+               : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm'
+               : MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : '';
+    mediaRec = mime ? new MediaRecorder(recStream, {mimeType:mime}) : new MediaRecorder(recStream);
+    mediaRec.ondataavailable = e => { if(e.data && e.data.size) recChunks.push(e.data); };
+    mediaRec.onstop = () => sendVoiceClip(mediaRec.mimeType || mime || 'audio/webm');
+    mediaRec.start();
+    $('#voiceBtn').classList.add('rec');
+    $('#voiceHint').style.display = 'block';
+    // auto-stop after 8s
+    clearTimeout(window._vto);
+    window._vto = setTimeout(()=>stopRec(false), 8000);
+  }catch(err){
+    alert('Microphone permission needed for voice chat');
+  }
+}
+function stopRec(cancel){
+  clearTimeout(window._vto);
+  $('#voiceBtn').classList.remove('rec');
+  $('#voiceHint').style.display = 'none';
+  if(!mediaRec) return;
+  const rec = mediaRec;
+  mediaRec = null;
+  if(cancel){
+    try{rec.onstop=null;rec.stop()}catch(e){}
+    recChunks=[];
+    return;
+  }
+  try{rec.stop()}catch(e){}
+}
+function sendVoiceClip(mime){
+  if(!recChunks.length || voiceSending) {recChunks=[];return}
+  voiceSending = true;
+  const blob = new Blob(recChunks, {type: mime});
+  recChunks = [];
+  if(blob.size < 400 || blob.size > 130000){ voiceSending=false; return; } // too short or too big
+  const reader = new FileReader();
+  reader.onload = () => {
+    const b64 = (reader.result || '').split(',')[1] || '';
+    if(b64) post({t:'voice', data:b64, mime:mime});
+    voiceSending = false;
+  };
+  reader.onerror = () => { voiceSending=false; };
+  reader.readAsDataURL(blob);
+}
+function playVoice(name, b64, mime, color){
+  try{
+    const bin = atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+    const blob = new Blob([arr], {type: mime||'audio/webm'});
+    const url = URL.createObjectURL(blob);
+    const a = new Audio(url);
+    a.onended = () => URL.revokeObjectURL(url);
+    a.play().catch(()=>{});
+    const el = $('#voicePlay');
+    if(el){
+      el.style.display='block';
+      el.textContent = '🔊 '+(name||'Player')+' speaking…';
+      if(color && HEX[color]) el.style.borderLeft = '4px solid '+HEX[color];
+      clearTimeout(window._vplay);
+      window._vplay = setTimeout(()=>{el.style.display='none'}, 4000);
+    }
+  }catch(e){}
+}
+// Hold-to-talk bindings
+(function(){
+  const btn = $('#voiceBtn');
+  if(!btn) return;
+  const down = e => { e.preventDefault(); startRec(); };
+  const up = e => { e.preventDefault(); stopRec(false); };
+  btn.addEventListener('mousedown', down);
+  btn.addEventListener('mouseup', up);
+  btn.addEventListener('mouseleave', () => stopRec(false));
+  btn.addEventListener('touchstart', down, {passive:false});
+  btn.addEventListener('touchend', up);
+  btn.addEventListener('touchcancel', () => stopRec(true));
+})();
 /* ========== CHAT ========== */
 let chatOpen=false, chatUnread=0;
 function showChatBtn(on){
@@ -1636,8 +1995,31 @@ def api_send(d):
         elif t == "chat":
             text = str(msg.get("text") or "").strip()[:120]
             if text:
-                # transient so reconnecting players are not flooded with old chat
                 r.transient({"t": "chat", "c": color, "name": r.names.get(cid, "Player"), "text": text})
+        elif t == "voice":
+            data = str(msg.get("data") or "")
+            if 32 < len(data) <= 180000:
+                r.transient({"t": "voice", "c": color, "name": r.names.get(cid, "Player"),
+                             "data": data, "mime": str(msg.get("mime") or "audio/webm")[:40]})
+        elif t == "rtc":
+            # WebRTC signaling (offer / answer / ice). Relay to target or everyone.
+            kind = str(msg.get("kind") or "")[:12]
+            sdp = msg.get("sdp")
+            ice = msg.get("ice")
+            to = str(msg.get("to") or "")  # target client id, or "" = all
+            payload = {"t": "rtc", "kind": kind, "from": cid, "c": color,
+                       "name": r.names.get(cid, "Player")}
+            if isinstance(sdp, str) and len(sdp) < 20000:
+                payload["sdp"] = sdp
+            if isinstance(ice, dict):
+                payload["ice"] = ice
+            if to and to in r.names:
+                # send only to that client via their queues
+                raw = __import__("json").dumps(payload, separators=(",", ":"))
+                for q in r.conns.get(to, []):
+                    q.put(raw)
+            else:
+                r.transient(payload)
     return {"ok": True}
 
 
