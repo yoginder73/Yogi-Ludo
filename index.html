@@ -541,6 +541,12 @@ body.lite .dm svg{filter:none}
 </div>
 <div id="resume" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
   <h2 style="margin:0 0 6px">👋 Welcome back</h2>
+  <div style="margin:6px 0 2px;font-size:14px;font-weight:700;text-align:center">🎨 Board theme</div>
+  <div id="themePick2" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 12px">
+    <button type="button" data-theme="glass" class="on" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">✨ Glass</button>
+    <button type="button" data-theme="classic" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">🎲 Classic</button>
+    <button type="button" data-theme="neon" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">💜 Neon</button>
+  </div>
   <div id="rsOn" class="hide"><div>🌐 Online game · Room <b id="rsRoom"></b></div>
     <div class="row"><button id="rsOnGo">▶ Resume</button><button id="rsOnX">✖ Close session</button></div></div>
   <div id="rsOff" class="hide"><div>🎲 Offline game · <span id="rsInfo"></span></div>
@@ -1256,7 +1262,7 @@ function applyTheme(name){
   document.body.classList.remove('theme-glass','theme-classic','theme-neon');
   if(name !== 'glass') document.body.classList.add('theme-'+name);
   try{localStorage.setItem('ludoTheme', name)}catch(e){}
-  document.querySelectorAll('#themePick button').forEach(b=>{
+  document.querySelectorAll('#themePick button, #themePick2 button').forEach(b=>{
     b.classList.toggle('on', b.getAttribute('data-theme')===name);
   });
 }
@@ -1264,7 +1270,7 @@ function applyTheme(name){
   let t='glass';
   try{t=localStorage.getItem('ludoTheme')||'glass'}catch(e){}
   applyTheme(t);
-  document.querySelectorAll('#themePick button').forEach(b=>{
+  document.querySelectorAll('#themePick button, #themePick2 button').forEach(b=>{
     b.onclick=()=>applyTheme(b.getAttribute('data-theme'));
   });
 })();
