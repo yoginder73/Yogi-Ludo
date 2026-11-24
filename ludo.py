@@ -76,33 +76,298 @@ h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;backgr
 body.ios .glass,body.ios .ov{backdrop-filter:none;-webkit-backdrop-filter:none}   /* iPhone Safari: blur layers wash out the board colours */
 body.ios .glass{background:rgba(50,30,110,.55)}
 
-/* ========== THEMES ========== */
-body.theme-classic{background:linear-gradient(160deg,#5c3a1e,#8b5a2b 40%,#c4a574);background-size:100% 100%;animation:none}
+/* ========== THEMES (Glass = default) ========== */
+/* Classic: traditional flat Ludo board (green/red/yellow/blue) */
+body.theme-classic{background:#1a4a2e;background-size:100% 100%;animation:none}
 body.theme-classic .b1,body.theme-classic .b2,body.theme-classic .b3,body.theme-classic .b4{display:none}
-body.theme-classic .glass{background:rgba(255,248,230,.92);border:2px solid #8b5a2b;color:#3a2210;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 6px 20px #0005}
-body.theme-classic h1{background:linear-gradient(90deg,#b22222,#daa520,#228b22,#1e90ff);-webkit-background-clip:text;background-clip:text}
-body.theme-classic .c{background:linear-gradient(145deg,#fff8e7,#f0e0c0);border:1px solid #c9a66b;color:#b8860b}
-body.theme-classic .c.col{color:#fff}
-body.theme-classic #board{border:4px solid #6b3e1a;box-shadow:0 8px 24px #0006}
-body.theme-classic button{background:linear-gradient(180deg,#f5d78e,#c9a227);color:#3a2210;border:1px solid #8b6914}
-body.theme-classic .ov{background:rgba(40,20,5,.55)}
+body.theme-classic .glass{background:#f7f7f7;border:2px solid #333;color:#222;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 24px #0005}
+body.theme-classic h1{background:linear-gradient(90deg,#e53935,#43a047,#fdd835,#1e88e5);-webkit-background-clip:text;background-clip:text}
+body.theme-classic .c{background:#fff;border:1px solid #bbb;border-radius:4px;box-shadow:none;color:#333}
+body.theme-classic .c.col{color:#fff;text-shadow:none}
+body.theme-classic .yard{border-radius:8px;border:3px solid #fff;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+body.theme-classic #board{border:5px solid #222;border-radius:8px;box-shadow:0 8px 28px #0006;background:#eee}
+body.theme-classic button{background:#fff;color:#222;border:2px solid #333}
+body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:1px solid #333}
+body.theme-classic .ov{background:rgba(0,0,0,.45)}
+body.theme-classic #ctr{border-radius:4px}
+body.theme-classic .by,body.theme-classic .row span{color:#333}
 
-body.theme-neon{background:#0a0a12;background-size:100% 100%;animation:none}
-body.theme-neon .b1{background:radial-gradient(circle,#ff0066 0,#ff006600 70%)}
-body.theme-neon .b2{background:radial-gradient(circle,#00ff9d 0,#00ff9d00 70%)}
-body.theme-neon .b3{background:radial-gradient(circle,#ffe600 0,#ffe60000 70%)}
-body.theme-neon .b4{background:radial-gradient(circle,#00d4ff 0,#00d4ff00 70%)}
-body.theme-neon .glass{background:rgba(10,10,25,.75);border:1px solid #0ff6;box-shadow:0 0 20px #0ff3,inset 0 0 12px #0ff2;backdrop-filter:blur(12px)}
-body.theme-neon h1{background:linear-gradient(90deg,#ff0066,#ffe600,#00ff9d,#00d4ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 8px #0ff8)}
-body.theme-neon .c{background:linear-gradient(145deg,#1a1a2e,#12121f);border:1px solid #0ff5;color:#0ff;box-shadow:0 0 6px #0ff3}
-body.theme-neon .c.col{color:#fff;text-shadow:0 0 6px #fff}
-body.theme-neon #board{border:2px solid #0ff8;box-shadow:0 0 30px #0ff4}
-body.theme-neon button{background:linear-gradient(180deg,#1a1a3a,#0d0d22);color:#0ff;border:1px solid #0ff8;box-shadow:0 0 10px #0ff4}
-body.theme-neon .ov{background:rgba(0,0,10,.7)}
+/* Arena: bold modern board like popular Ludo apps */
+body.theme-arena{background:linear-gradient(160deg,#0d1b4a,#1a237e 50%,#0d47a1);background-size:100% 100%;animation:none}
+body.theme-arena .b1{background:radial-gradient(circle,#e53935 0,#e5393500 70%)}
+body.theme-arena .b2{background:radial-gradient(circle,#43a047 0,#43a04700 70%)}
+body.theme-arena .b3{background:radial-gradient(circle,#fdd835 0,#fdd83500 70%)}
+body.theme-arena .b4{background:radial-gradient(circle,#1e88e5 0,#1e88e500 70%)}
+body.theme-arena .glass{background:rgba(255,255,255,.95);border:2px solid #1565c0;color:#0d1b4a;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px #0006}
+body.theme-arena h1{background:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text}
+body.theme-arena .c{background:#fff;border:1px solid #90caf9;border-radius:6px;box-shadow:0 1px 3px #0002;color:#1565c0}
+body.theme-arena .c.col{color:#fff}
+body.theme-arena .yard{border-radius:12px;border:3px solid #fff;box-shadow:0 4px 12px #0004}
+body.theme-arena #board{border:4px solid #0d47a1;border-radius:16px;box-shadow:0 12px 32px #0007}
+body.theme-arena button{background:linear-gradient(180deg,#42a5f5,#1565c0);color:#fff;border:none}
+body.theme-arena .ov{background:rgba(13,27,74,.55)}
 
 
 
 
+
+#voiceBtn{position:fixed;bottom:14px;right:14px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:20px;display:none;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007;touch-action:none;user-select:none}
+#voiceBtn.on{background:linear-gradient(180deg,#2de08a,#1a9e5c)!important;box-shadow:0 0 18px #2de08a99}
+#voiceBtn.muted{background:linear-gradient(180deg,#666,#444)!important;opacity:.85}
+#voiceHint{position:fixed;bottom:70px;right:12px;z-index:41;background:rgba(0,0,0,.8);color:#fff;padding:8px 12px;border-radius:12px;font-size:12px;display:none;pointer-events:none;max-width:70vw;text-align:center}
+#voicePlay{position:fixed;bottom:70px;left:12px;z-index:40;max-width:50vw;font-size:12px;padding:6px 10px;border-radius:12px;display:none;background:rgba(0,0,0,.7);color:#fff;pointer-events:none}
+
+#themePick{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0 12px}
+#themePick button{padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700;opacity:.75;min-width:90px}
+#themePick button.on{opacity:1;outline:3px solid #fff;outline-offset:2px;transform:scale(1.05)}
+
+/* player tag in each start box: first 3 letters, glossy gold lettering. Back layer = outline + stacked edge + soft shadow,
+   front layer = gold gradient with a diagonal sheen and a thin bright rim */
+.yn{position:absolute;left:50%;top:50%;width:100%;transform:translate(-50%,-50%) rotate(-45deg);display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;
+ font-family:"Arial Rounded MT Bold","Arial Black",Impact,"Trebuchet MS",sans-serif;font-weight:900;font-style:italic;font-size:calc(var(--bs)*.056);line-height:1.05;letter-spacing:.1em}
+.yn .a{position:relative;display:block;color:transparent;white-space:nowrap;padding-right:.1em}
+.yn .a::before,.yn .a::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;text-align:center;letter-spacing:inherit}
+.yn .a::before{color:#6b3600;-webkit-text-stroke:.13em #6b3600;text-shadow:0 .04em 0 #9a5600,0 .08em 0 #7d4400,0 .12em 0 #5e3000,0 .2em .08em rgba(0,0,0,.45)}
+.yn .a::after{background:linear-gradient(112deg,transparent 30%,rgba(255,255,255,.75) 42%,transparent 54%),linear-gradient(180deg,#fffbd0 0%,#ffe36e 22%,#f7b500 48%,#ffe27a 60%,#e09200 82%,#b86a00 100%);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
+.yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
+.yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
+#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#2de08a 0 90deg,#ffd23f 90deg 180deg,#4dabff 180deg 270deg,#ff4d6d 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:1px solid #fff9}
+.tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
+.tk::after{content:"";position:absolute;left:22%;top:14%;width:32%;height:22%;border-radius:50%;background:#fffc;filter:blur(1px)}
+.tk.can{z-index:9;animation:hop .5s ease-in-out infinite;box-shadow:0 0 0 3px #fff,0 0 18px 7px currentColor}
+@keyframes hop{50%{transform:translate(calc(-50% + var(--ox,0%)),calc(-80% + var(--oy,0%)))}}
+#ui{z-index:1;display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:22px;width:min(96vw,430px);height:110px;flex:none}
+@property --pc{syntax:'<color>';inherits:true;initial-value:#ff7ae0}
+@property --pd{syntax:'<color>';inherits:true;initial-value:#7a2cff}
+#scene{--pc:#ff7ae0;--pd:#7a2cff;transition:--pc .22s,--pd .22s;width:88px;height:88px;perspective:520px;cursor:pointer;touch-action:manipulation;padding:0;filter:drop-shadow(0 12px 10px #0009)}
+#cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
+.f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
+.f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
+#scene.wait{animation:bob 1.1s ease-in-out infinite}
+@keyframes bob{0%,100%{filter:drop-shadow(0 0 6px var(--pc)) drop-shadow(0 12px 10px #0009)}50%{filter:drop-shadow(0 0 24px var(--pc)) drop-shadow(0 12px 10px #0009)}}
+#scene.rolling{animation:toss 1s ease-out}
+@keyframes toss{40%{transform:translateY(-34px) scale(1.3)}100%{transform:none}}
+#scene.six{animation:shake .7s}
+#scene.sad{animation:sad 1.1s}
+@keyframes sad{15%{transform:rotate(-14deg) translateY(8px)}35%{transform:rotate(10deg) translateY(10px)}55%{transform:rotate(-6deg) translateY(8px)}100%{transform:none}}
+#scene.six #cube{filter:drop-shadow(0 0 20px #ffd23f) drop-shadow(0 0 44px #ff4dd8)}
+@keyframes shake{20%{transform:scale(1.5) rotate(-10deg)}40%{transform:scale(1.5) rotate(10deg)}60%{transform:scale(1.4) rotate(-6deg)}100%{transform:scale(1)}}
+#st{flex:1;min-width:0;height:68px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;font-size:13px;font-weight:600;line-height:1.45;text-shadow:0 2px 6px #0008}
+#st b{padding:2px 10px;border-radius:12px;color:#111}
+#st small{opacity:.9;font-weight:500}
+#stamp{z-index:1;font-size:11px;letter-spacing:1.2px;font-weight:600;padding:3px 14px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);text-shadow:0 0 8px #ff7ae0,0 1px 3px #0008;box-shadow:0 0 12px rgba(255,122,224,.35)}
+.by{font-size:12px;letter-spacing:1px;margin:2px 0 8px;text-shadow:0 0 8px #ff7ae0}
+button{font:inherit;color:#fff;border:1px solid #fff8;background:rgba(255,255,255,.2);border-radius:14px;padding:10px 16px;cursor:pointer;touch-action:manipulation}
+#toast{position:fixed;top:12%;left:50%;transform:translateX(-50%) scale(.5);font-size:clamp(24px,7vw,48px);font-weight:900;z-index:50;pointer-events:none;opacity:0;text-shadow:0 0 20px #f0f,0 0 40px #ff0;white-space:nowrap}
+#toast.show{animation:ts 1.5s}
+@keyframes ts{15%{opacity:1;transform:translateX(-50%) scale(1.15)}80%{opacity:1;transform:translateX(-50%) scale(1)}100%{opacity:0;transform:translateX(-50%) scale(1.3)}}
+.ov{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:rgba(10,0,30,.5);backdrop-filter:blur(6px)}
+.ov .glass{padding:24px;border-radius:26px;text-align:center;max-width:92vw}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0}
+.dot{display:inline-block;width:18px;height:18px;border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 10px currentColor}
+select{font:inherit;color:#fff;background:rgba(255,255,255,.2);border:1px solid #fff8;border-radius:10px;padding:6px}
+select option{color:#000}
+#go{font-size:18px;margin-top:8px;background:linear-gradient(90deg,#ff4d6d99,#4dabff99)}
+.hide{display:none!important}
+input{font:inherit;color:#fff;background:rgba(255,255,255,.2);border:1px solid #fff8;border-radius:12px;padding:10px;width:100%;text-align:center;outline:none}
+input::placeholder{color:#ffffffaa}
+#rcode{width:130px;letter-spacing:4px;text-transform:uppercase}
+#rc{font-size:40px;font-weight:900;letter-spacing:8px;text-shadow:0 0 14px #ff7ae0}
+#skip{padding:8px 10px;font-size:13px}
+.thumb{position:absolute;z-index:14;pointer-events:none;display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:radial-gradient(circle,#ff2b2bcc 0,#ff2b2b44 52%,transparent 72%);animation:tdown 1.1s ease-in 2 both;filter:drop-shadow(0 4px 8px #000a)}
+@keyframes tdown{0%{transform:translate(-50%,-140%) scale(.2) rotate(-25deg);opacity:0}25%{transform:translate(-50%,-90%) scale(1.5) rotate(-10deg);opacity:1}
+  55%{transform:translate(-50%,10%) scale(1.8) rotate(8deg);opacity:1}70%{transform:translate(-50%,-10%) scale(1.6) rotate(-4deg)}
+  85%{transform:translate(-50%,40%) scale(1.7) rotate(4deg);opacity:1}100%{transform:translate(-50%,80%) scale(1.2) rotate(0);opacity:0}}
+#tl{position:fixed;top:8px;left:8px;z-index:6;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100vw - 150px)}
+#tl button{padding:5px 9px;font-size:11px;background:rgba(255,255,255,.18)}
+.toon{position:fixed;z-index:28;pointer-events:none;width:132px;opacity:0;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .25s;bottom:8px}
+#toonL{left:4px;transform:translateX(-170%)}
+#toonR{right:4px;transform:translateX(170%)}
+.toon.show{opacity:1;transform:none}
+.toon .bub{position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:800;font-size:13px;background:#fff;color:#b3122a;padding:3px 10px;border-radius:12px;box-shadow:0 2px 8px #0007}
+.toon svg{width:100%;height:auto;filter:drop-shadow(0 4px 6px #0008)}
+.dh{animation:dbob .3s ease-in-out infinite alternate}@keyframes dbob{to{transform:translateY(-4px)}}
+.s1{transform-origin:42px 84px;animation:sh .28s ease-in-out infinite alternate}
+.s2{transform-origin:78px 84px;animation:sh .28s ease-in-out infinite alternate-reverse}
+@keyframes sh{from{transform:rotate(-14deg)}to{transform:rotate(10deg)}}
+.ft{transform-origin:74px 94px;animation:push 1.1s ease-in-out infinite alternate}
+@keyframes push{to{transform:rotate(-26deg)}}
+.lt{transform-origin:115px 117px;animation:tipl 1.2s ease-out .35s infinite alternate}
+@keyframes tipl{to{transform:translateX(9px) rotate(26deg)}}
+.rc{animation:rice 1.2s ease-in .5s infinite}
+@keyframes rice{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--dx,8px),20px);opacity:0}}
+#tools{position:fixed;top:8px;right:8px;z-index:6;display:flex;gap:6px}
+#tools button{padding:5px 10px;font-size:12px;background:rgba(255,255,255,.18)}
+#net{position:fixed;bottom:6px;right:8px;font-size:11px;z-index:6;padding:2px 9px;border-radius:10px;background:rgba(0,0,0,.4)}
+body.lite{animation:none;background:linear-gradient(135deg,#1b0b3a,#0b2a5b,#3a0b4f)}
+body.lite .blob{display:none}
+body.lite .glass,body.lite .ov{backdrop-filter:none;-webkit-backdrop-filter:none}
+body.lite .glass{background:rgba(50,30,110,.6)}
+body.lite #scene,body.lite #cube,body.lite #scene.wait,body.lite #scene.six #cube{filter:none!important}
+body.lite #scene.wait{animation:none}
+body.lite .tk{box-shadow:0 2px 4px #0008}
+body.lite .tk.can{box-shadow:0 0 0 3px #fff}
+body.lite .c,body.lite .yard,body.lite .yi,body.lite #ctr{box-shadow:none}
+body.lite .f{box-shadow:inset 0 0 8px #fff8}
+#pick{display:grid;grid-template:repeat(2,52px)/repeat(2,64px);gap:8px;justify-content:center;margin:6px 0 10px}
+#pick button{padding:0;color:#111;font-weight:800}
+#presets{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+#presets button{padding:6px 10px;font-size:12px}
+
+/* --- dhol boy that appears when a goti leaves the yard --- */
+.dm{position:absolute;z-index:13;pointer-events:none;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .5s cubic-bezier(.2,1.6,.4,1),opacity .3s}
+.dm.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+.dm svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 3px 4px #0009)}
+.dm:not(.show) svg *{animation-play-state:paused}
+body.lite .dm svg{filter:none}
+.dm-bd{animation:dmbob .26s ease-in-out infinite alternate}
+@keyframes dmbob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+.dm-l{transform-origin:44px 128px;animation:dml .26s ease-in-out infinite alternate}
+.dm-r{transform-origin:152px 112px;animation:dml .26s ease-in-out infinite alternate-reverse}
+@keyframes dml{from{transform:rotate(-16deg)}to{transform:rotate(12deg)}}
+.dm-hd{transform-origin:98px 108px;animation:dmhd .52s ease-in-out infinite alternate}
+@keyframes dmhd{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+.dm-tf{transform-origin:112px 36px;animation:dmtf .26s ease-in-out infinite alternate}
+@keyframes dmtf{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.dm-mo{transform-origin:97px 97px;animation:dmmo .26s ease-in-out infinite alternate}
+@keyframes dmmo{from{transform:scaleY(.55)}to{transform:scaleY(1)}}
+.dm-ey{transform-origin:97px 82px;animation:dmey 2.1s infinite}
+@keyframes dmey{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.dm-dr{transform-origin:110px 172px;animation:dmdr .26s ease-in-out infinite alternate}
+@keyframes dmdr{from{transform:scale(1)}to{transform:scale(1.035)}}
+.dm-ts{animation:dmts .52s ease-in-out infinite alternate}
+.dm-ts:nth-of-type(2n){animation-direction:alternate-reverse}
+@keyframes dmts{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
+
+/* --- name boxes, leaderboard --- */
+.ov .glass{max-height:96vh;overflow:auto}
+#opts .row{gap:6px}
+.nm{flex:1;min-width:70px;max-width:150px;padding:7px 8px;font-size:14px;border-radius:10px}
+.sr{display:flex;align-items:center;gap:8px;padding:7px 10px;margin:5px 0;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);text-align:left}
+.sr .rk{font-size:20px;width:30px;text-align:center;flex:none}
+.sr .nm2{flex:1;min-width:0}
+.sr .nm2 b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr small{display:block;opacity:.85;font-size:11px;line-height:1.35}
+.sr .wn{font-size:17px;font-weight:800;flex:none;color:#ffd23f}
+.sr .sx{padding:2px 7px;font-size:11px;flex:none;background:rgba(255,255,255,.12)}
+#stList{max-height:54vh;overflow:auto;min-width:min(80vw,320px)}
+</style></head><body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+<h1>✨ GLASS LUDO ✨</h1>
+<div id="board" class="glass"><div id="grid"></div></div>
+<div id="ui" class="glass">
+  <div id="scene" class="wait"><div id="cube"></div></div>
+  <div id="st">…</div>
+  <button id="skip" class="hide" title="Skip absent player">⏭</button><button id="snd">🔊</button>
+</div>
+<div id="stamp">✍️ Developed by Yoginder Singh Negi</div>
+<div id="tools"><button id="lite"></button><button id="spd"></button></div><div id="tl"><button id="quit" class="hide">🚪 Quit</button><button id="fin" class="hide">🏁 Finish</button><button id="sync" class="hide" title="Refresh the game for all players">🔄 Sync</button></div><div id="net" class="hide"></div>
+<div id="toonL" class="toon"><div class="bub">Chal haat! 🥁</div><svg viewBox="0 0 120 120"><g class="dh">
+  <path d="M28 120 Q28 76 60 76 Q92 76 92 120Z" fill="#ff8c1a"/>
+  <ellipse cx="60" cy="98" rx="40" ry="14" fill="#8b4a1c"/>
+  <ellipse cx="21" cy="98" rx="7" ry="14" fill="#f5deb3" stroke="#6b3410" stroke-width="2"/>
+  <ellipse cx="99" cy="98" rx="7" ry="14" fill="#f5deb3" stroke="#6b3410" stroke-width="2"/>
+  <path d="M26 87 L40 109 L54 87 L68 109 L82 87 L94 107" stroke="#ffd23f" stroke-width="2.5" fill="none"/>
+  <circle cx="60" cy="52" r="20" fill="#f2b27a"/>
+  <path d="M38 50 Q38 22 60 22 Q82 22 82 50 Q60 40 38 50Z" fill="#e63946"/>
+  <path d="M42 36 Q60 26 78 36" stroke="#ffd23f" stroke-width="3" fill="none"/>
+  <circle cx="60" cy="26" r="5" fill="#ffd23f"/>
+  <circle cx="52" cy="54" r="2.6" fill="#222"/><circle cx="68" cy="54" r="2.6" fill="#222"/>
+  <path d="M47 63 Q54 57 60 62 Q66 57 73 63 Q66 68 60 64 Q54 68 47 63Z" fill="#222"/>
+  <ellipse cx="60" cy="71" rx="5" ry="3.5" fill="#7a1f1f"/>
+  <g class="s1"><line x1="42" y1="84" x2="24" y2="68" stroke="#f2b27a" stroke-width="7" stroke-linecap="round"/><line x1="24" y1="68" x2="14" y2="50" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/></g>
+  <g class="s2"><line x1="78" y1="84" x2="96" y2="68" stroke="#f2b27a" stroke-width="7" stroke-linecap="round"/><line x1="96" y1="68" x2="106" y2="50" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/></g>
+</g></svg></div>
+<div id="toonR" class="toon"><div class="bub">Griha Pravesh 🏠</div><svg viewBox="0 0 140 120"><g>
+  <path d="M34 118 L50 62 L78 62 L94 118Z" fill="#ff4fa3"/>
+  <path d="M50 62 Q64 52 80 62 L86 92 Q70 82 52 88Z" fill="#ffd23f" opacity="0.92"/>
+  <path d="M40 112 L88 112" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/>
+  <circle cx="64" cy="42" r="19" fill="#f6c28b"/>
+  <path d="M44 40 Q44 18 64 18 Q84 18 84 40 Q76 27 64 27 Q52 27 44 40Z" fill="#2b1b17"/>
+  <ellipse cx="42" cy="52" rx="5" ry="11" fill="#2b1b17"/><ellipse cx="86" cy="52" rx="5" ry="11" fill="#2b1b17"/>
+  <circle cx="42" cy="42" r="4" fill="#ff4fa3"/><circle cx="86" cy="42" r="4" fill="#ff4fa3"/>
+  <circle cx="64" cy="31" r="2.2" fill="#e63946"/>
+  <ellipse cx="57" cy="44" rx="3" ry="3.6" fill="#222"/><ellipse cx="71" cy="44" rx="3" ry="3.6" fill="#222"/>
+  <circle cx="58" cy="42.6" r="1.1" fill="#fff"/><circle cx="72" cy="42.6" r="1.1" fill="#fff"/>
+  <circle cx="51" cy="51" r="3.5" fill="#ff8fa3" opacity="0.6"/><circle cx="77" cy="51" r="3.5" fill="#ff8fa3" opacity="0.6"/>
+  <path d="M58 52 Q64 58 70 52" stroke="#a33" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <g class="ft"><rect x="70" y="94" width="9" height="20" rx="4" fill="#f6c28b" transform="rotate(-8 74 94)"/><ellipse cx="82" cy="116" rx="10" ry="4.5" fill="#f6c28b"/><path d="M72 111 Q81 106 91 111" stroke="#ffd23f" stroke-width="2" fill="none"/></g>
+  <g class="lt"><path d="M100 104 Q96 86 108 80 L122 80 Q134 86 130 104 Q130 117 115 117 Q100 117 100 104Z" fill="#e0a526" stroke="#b07a0f" stroke-width="2"/><ellipse cx="115" cy="80" rx="9" ry="3.5" fill="#fff2b0"/><circle cx="115" cy="72" r="8" fill="#8b5a2b"/><path d="M107 74 Q100 64 108 61 M123 74 Q130 64 122 61" stroke="#2ea043" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+  <circle class="rc" cx="124" cy="112" r="2" fill="#fff" style="--dx:10px"/><circle class="rc" cx="130" cy="114" r="2" fill="#fff" style="--dx:16px;animation-delay:.7s"/><circle class="rc" cx="120" cy="114" r="2" fill="#fff" style="--dx:6px;animation-delay:.9s"/>
+</g></svg></div>
+<div id="toast"></div>
+<div id="setup" class="ov"><div class="glass">
+  <h2 style="margin:0 0 2px">🎲 New Game</h2>
+  <div class="by">Developed by Yoginder Singh Negi</div>
+  <div style="margin:8px 0 2px;font-size:14px;font-weight:700;text-align:center">🎨 Board theme</div>
+  <div id="themePick">
+    <button type="button" data-theme="glass" class="on">✨ Glass</button>
+    <button type="button" data-theme="classic">🎲 Classic</button>
+    <button type="button" data-theme="arena">🏟️ Arena</button>
+  </div>
+  <div style="font-size:13px;opacity:.9;margin-top:10px">Choose corners, player type and a name for each human player (first 3 letters shown in their start box)</div>
+  <div id="presets"><button data-p="d1">2P ⤡ Red–Yellow</button><button data-p="d2">2P ⤢ Green–Blue</button><button data-p="p3">3 Players</button><button data-p="p4">4 Players</button></div>
+  <div id="opts"></div>
+  <div class="row"><span>🏁 Win by getting</span><select id="winN"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
+  <div style="font-size:12px;opacity:.8">Tip: with 2 players use opposite corners.</div>
+  <button id="go">▶ Start Game</button>
+  <div style="margin-top:12px"><button id="goOnline" style="background:linear-gradient(90deg,#2de08a88,#4dabff88);font-size:17px">🌐 Play Online with Friends</button></div>
+  <div id="srvStat" class="by" style="margin-top:10px"></div>
+  <div style="margin-top:10px"><button id="goStats" style="background:linear-gradient(90deg,#ffd23f77,#ff4d6d77);font-size:16px">🏆 Leaderboard &amp; Stats</button></div>
+</div></div>
+
+<button id="voiceBtn" title="Voice call">🎤</button>
+<div id="voiceHint"></div>
+<div id="voicePlay"></div>
+<div id="resume" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
+  <h2 style="margin:0 0 6px">👋 Welcome back</h2>
+  <div style="margin:6px 0 2px;font-size:14px;font-weight:700;text-align:center">🎨 Board theme</div>
+  <div id="themePick2" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:6px 0 12px">
+    <button type="button" data-theme="glass" class="on" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">✨ Glass</button>
+    <button type="button" data-theme="classic" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">🎲 Classic</button>
+    <button type="button" data-theme="arena" style="padding:12px 16px;border-radius:14px;font-size:15px;font-weight:700">🏟️ Arena</button>
+  </div>
+  <div id="rsOn" class="hide"><div>🌐 Online game · Room <b id="rsRoom"></b></div>
+    <div class="row"><button id="rsOnGo">▶ Resume</button><button id="rsOnX">✖ Close session</button></div></div>
+  <div id="rsOff" class="hide"><div>🎲 Offline game · <span id="rsInfo"></span></div>
+    <div class="row"><button id="rsOffGo">▶ Resume</button><button id="rsOffX">✖ Close session</button></div></div>
+  <div id="rsErr" style="color:#ffb3c1;min-height:18px;margin:4px 0"></div>
+  <button id="rsNew">🆕 Start a new game</button>
+</div></div>
+<div id="online" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
+  <h2 style="margin:0 0 4px">🌐 Play Online</h2>
+  <div id="onJoin">
+    <div id="srv" class="hide" style="font-size:12px;opacity:.9;margin:4px 0 8px;word-break:break-all"></div>
+    <input id="pname" maxlength="14" placeholder="Your name" autocomplete="off">
+    <div class="row"><button id="mkRoom" style="width:100%">➕ Create room (be the host)</button></div>
+    <div style="opacity:.8;font-size:13px">— or join a friend's room —</div>
+    <div class="row"><input id="rcode" maxlength="4" placeholder="CODE" autocomplete="off"><button id="joinRoom">Join</button></div>
+  </div>
+  <div id="onLobby" class="hide">
+    <div style="opacity:.85;font-size:13px">Room code</div><div id="rc"></div>
+    <div class="row"><button id="shareBtn">📤 Invite friends</button><button id="copyBtn">📋 Copy link</button></div>
+    <div style="font-size:13px;opacity:.85;margin-top:6px">Pick your start corner</div>
+    <div id="pick"></div>
+    <div id="seats"></div>
+    <div id="lobMsg" class="by"></div>
+    <div id="winRow" class="row hide"><span>🏁 Win by getting</span><select id="winLobby"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
+    <button id="startOn" class="hide" style="font-size:18px;background:linear-gradient(90deg,#ff4d6d99,#4dabff99)">▶ Start game</button>
+  </div>
+  <div id="onErr" style="color:#ffb3c1;margin:6px 0;min-height:18px"></div>
+  <button id="onBack">← Back</button>
+</div></div>
+<div id="win" class="ov hide"><div class="glass"><h1 id="wt" style="font-size:34px;-webkit-text-fill-color:#fff"></h1><div id="rank" style="margin:8px 0;min-width:220px"></div><div class="by">Developed by Yoginder Singh Negi</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button id="again">Play again</button><button id="wStats">🏆 Leaderboard</button></div></div></div>
+<div id="stats" class="ov hide"><div class="glass" style="width:min(94vw,400px)">
+  <h2 style="margin:0 0 2px">🏆 Leaderboard</h2>
+  <div class="by">Ranked by wins · saved on this device</div>
+  <div id="stList"></div>
+  <div class="row" style="justify-content:center"><button id="stClose">← Back</button><button id="stReset">🗑 Reset all</button></div>
+</div></div>
+
+<script>
 /* ========== LIVE VOICE (WebRTC group call, low-latency) ========== */
 const RTC_CFG = {
   iceServers: [
@@ -354,278 +619,8 @@ async function toggleVoice() {
   btn.addEventListener('touchend', e => { e.preventDefault(); end(e); });
 })();
 function playVoice(){ /* legacy short clips unused in live mode */ }
-/* ========== CHAT ========== */
-#chatBtn{position:fixed;bottom:14px;right:14px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007}
-#chatPanel{position:fixed;bottom:70px;right:12px;width:min(92vw,320px);max-height:45vh;z-index:40;display:none;flex-direction:column;border-radius:16px;overflow:hidden}
-#chatPanel.open{display:flex}
-#chatLog{flex:1;overflow-y:auto;padding:10px;font-size:13px;line-height:1.35;max-height:32vh}
-#chatLog .msg{margin:4px 0;word-break:break-word}
-#chatLog .msg b{margin-right:4px}
-#chatForm{display:flex;gap:6px;padding:8px;border-top:1px solid rgba(255,255,255,.2)}
-#chatIn{flex:1;border:none;border-radius:10px;padding:8px 10px;font-size:14px;background:rgba(0,0,0,.25);color:inherit}
-#chatIn::placeholder{color:rgba(255,255,255,.5)}
-body.theme-classic #chatIn{background:rgba(255,255,255,.7);color:#3a2210}
-#chatSend{padding:8px 12px;border-radius:10px;font-size:13px}
-#chatBadge{position:absolute;top:-4px;right:-4px;background:#f44;color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center}
-#voiceBtn{position:fixed;bottom:14px;right:70px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:20px;display:none;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007;touch-action:none;user-select:none}
-#voiceBtn.on{background:linear-gradient(180deg,#2de08a,#1a9e5c)!important;box-shadow:0 0 18px #2de08a99}
-#voiceBtn.muted{background:linear-gradient(180deg,#666,#444)!important;opacity:.85}
-#voiceHint{position:fixed;bottom:70px;right:12px;z-index:41;background:rgba(0,0,0,.8);color:#fff;padding:8px 12px;border-radius:12px;font-size:12px;display:none;pointer-events:none;max-width:70vw;text-align:center}
-#voicePlay{position:fixed;bottom:70px;left:12px;z-index:40;max-width:50vw;font-size:12px;padding:6px 10px;border-radius:12px;display:none;background:rgba(0,0,0,.7);color:#fff}
 
-#themePick{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
-#themePick button{padding:8px 14px;border-radius:12px;font-size:13px;opacity:.7}
-#themePick button.on{opacity:1;outline:2px solid #fff;outline-offset:2px}
 
-/* player tag in each start box: first 3 letters, glossy gold lettering. Back layer = outline + stacked edge + soft shadow,
-   front layer = gold gradient with a diagonal sheen and a thin bright rim */
-.yn{position:absolute;left:50%;top:50%;width:100%;transform:translate(-50%,-50%) rotate(-45deg);display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;
- font-family:"Arial Rounded MT Bold","Arial Black",Impact,"Trebuchet MS",sans-serif;font-weight:900;font-style:italic;font-size:calc(var(--bs)*.056);line-height:1.05;letter-spacing:.1em}
-.yn .a{position:relative;display:block;color:transparent;white-space:nowrap;padding-right:.1em}
-.yn .a::before,.yn .a::after{content:attr(data-t);position:absolute;left:0;top:0;width:100%;text-align:center;letter-spacing:inherit}
-.yn .a::before{color:#6b3600;-webkit-text-stroke:.13em #6b3600;text-shadow:0 .04em 0 #9a5600,0 .08em 0 #7d4400,0 .12em 0 #5e3000,0 .2em .08em rgba(0,0,0,.45)}
-.yn .a::after{background:linear-gradient(112deg,transparent 30%,rgba(255,255,255,.75) 42%,transparent 54%),linear-gradient(180deg,#fffbd0 0%,#ffe36e 22%,#f7b500 48%,#ffe27a 60%,#e09200 82%,#b86a00 100%);
- -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
-.yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
-.yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
-#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#2de08a 0 90deg,#ffd23f 90deg 180deg,#4dabff 180deg 270deg,#ff4d6d 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:1px solid #fff9}
-.tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
-.tk::after{content:"";position:absolute;left:22%;top:14%;width:32%;height:22%;border-radius:50%;background:#fffc;filter:blur(1px)}
-.tk.can{z-index:9;animation:hop .5s ease-in-out infinite;box-shadow:0 0 0 3px #fff,0 0 18px 7px currentColor}
-@keyframes hop{50%{transform:translate(calc(-50% + var(--ox,0%)),calc(-80% + var(--oy,0%)))}}
-#ui{z-index:1;display:flex;align-items:center;gap:12px;padding:8px 14px;border-radius:22px;width:min(96vw,430px);height:110px;flex:none}
-@property --pc{syntax:'<color>';inherits:true;initial-value:#ff7ae0}
-@property --pd{syntax:'<color>';inherits:true;initial-value:#7a2cff}
-#scene{--pc:#ff7ae0;--pd:#7a2cff;transition:--pc .22s,--pd .22s;width:88px;height:88px;perspective:520px;cursor:pointer;touch-action:manipulation;padding:0;filter:drop-shadow(0 12px 10px #0009)}
-#cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
-.f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
-.f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
-#scene.wait{animation:bob 1.1s ease-in-out infinite}
-@keyframes bob{0%,100%{filter:drop-shadow(0 0 6px var(--pc)) drop-shadow(0 12px 10px #0009)}50%{filter:drop-shadow(0 0 24px var(--pc)) drop-shadow(0 12px 10px #0009)}}
-#scene.rolling{animation:toss 1s ease-out}
-@keyframes toss{40%{transform:translateY(-34px) scale(1.3)}100%{transform:none}}
-#scene.six{animation:shake .7s}
-#scene.sad{animation:sad 1.1s}
-@keyframes sad{15%{transform:rotate(-14deg) translateY(8px)}35%{transform:rotate(10deg) translateY(10px)}55%{transform:rotate(-6deg) translateY(8px)}100%{transform:none}}
-#scene.six #cube{filter:drop-shadow(0 0 20px #ffd23f) drop-shadow(0 0 44px #ff4dd8)}
-@keyframes shake{20%{transform:scale(1.5) rotate(-10deg)}40%{transform:scale(1.5) rotate(10deg)}60%{transform:scale(1.4) rotate(-6deg)}100%{transform:scale(1)}}
-#st{flex:1;min-width:0;height:68px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;font-size:13px;font-weight:600;line-height:1.45;text-shadow:0 2px 6px #0008}
-#st b{padding:2px 10px;border-radius:12px;color:#111}
-#st small{opacity:.9;font-weight:500}
-#stamp{z-index:1;font-size:11px;letter-spacing:1.2px;font-weight:600;padding:3px 14px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);text-shadow:0 0 8px #ff7ae0,0 1px 3px #0008;box-shadow:0 0 12px rgba(255,122,224,.35)}
-.by{font-size:12px;letter-spacing:1px;margin:2px 0 8px;text-shadow:0 0 8px #ff7ae0}
-button{font:inherit;color:#fff;border:1px solid #fff8;background:rgba(255,255,255,.2);border-radius:14px;padding:10px 16px;cursor:pointer;touch-action:manipulation}
-#toast{position:fixed;top:12%;left:50%;transform:translateX(-50%) scale(.5);font-size:clamp(24px,7vw,48px);font-weight:900;z-index:50;pointer-events:none;opacity:0;text-shadow:0 0 20px #f0f,0 0 40px #ff0;white-space:nowrap}
-#toast.show{animation:ts 1.5s}
-@keyframes ts{15%{opacity:1;transform:translateX(-50%) scale(1.15)}80%{opacity:1;transform:translateX(-50%) scale(1)}100%{opacity:0;transform:translateX(-50%) scale(1.3)}}
-.ov{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:rgba(10,0,30,.5);backdrop-filter:blur(6px)}
-.ov .glass{padding:24px;border-radius:26px;text-align:center;max-width:92vw}
-.row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0}
-.dot{display:inline-block;width:18px;height:18px;border-radius:50%;margin-right:8px;vertical-align:middle;box-shadow:0 0 10px currentColor}
-select{font:inherit;color:#fff;background:rgba(255,255,255,.2);border:1px solid #fff8;border-radius:10px;padding:6px}
-select option{color:#000}
-#go{font-size:18px;margin-top:8px;background:linear-gradient(90deg,#ff4d6d99,#4dabff99)}
-.hide{display:none!important}
-input{font:inherit;color:#fff;background:rgba(255,255,255,.2);border:1px solid #fff8;border-radius:12px;padding:10px;width:100%;text-align:center;outline:none}
-input::placeholder{color:#ffffffaa}
-#rcode{width:130px;letter-spacing:4px;text-transform:uppercase}
-#rc{font-size:40px;font-weight:900;letter-spacing:8px;text-shadow:0 0 14px #ff7ae0}
-#skip{padding:8px 10px;font-size:13px}
-.thumb{position:absolute;z-index:14;pointer-events:none;display:flex;align-items:center;justify-content:center;border-radius:50%;
-  background:radial-gradient(circle,#ff2b2bcc 0,#ff2b2b44 52%,transparent 72%);animation:tdown 1.1s ease-in 2 both;filter:drop-shadow(0 4px 8px #000a)}
-@keyframes tdown{0%{transform:translate(-50%,-140%) scale(.2) rotate(-25deg);opacity:0}25%{transform:translate(-50%,-90%) scale(1.5) rotate(-10deg);opacity:1}
-  55%{transform:translate(-50%,10%) scale(1.8) rotate(8deg);opacity:1}70%{transform:translate(-50%,-10%) scale(1.6) rotate(-4deg)}
-  85%{transform:translate(-50%,40%) scale(1.7) rotate(4deg);opacity:1}100%{transform:translate(-50%,80%) scale(1.2) rotate(0);opacity:0}}
-#tl{position:fixed;top:8px;left:8px;z-index:6;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100vw - 150px)}
-#tl button{padding:5px 9px;font-size:11px;background:rgba(255,255,255,.18)}
-.toon{position:fixed;z-index:28;pointer-events:none;width:132px;opacity:0;transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .25s;bottom:8px}
-#toonL{left:4px;transform:translateX(-170%)}
-#toonR{right:4px;transform:translateX(170%)}
-.toon.show{opacity:1;transform:none}
-.toon .bub{position:absolute;top:-24px;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:800;font-size:13px;background:#fff;color:#b3122a;padding:3px 10px;border-radius:12px;box-shadow:0 2px 8px #0007}
-.toon svg{width:100%;height:auto;filter:drop-shadow(0 4px 6px #0008)}
-.dh{animation:dbob .3s ease-in-out infinite alternate}@keyframes dbob{to{transform:translateY(-4px)}}
-.s1{transform-origin:42px 84px;animation:sh .28s ease-in-out infinite alternate}
-.s2{transform-origin:78px 84px;animation:sh .28s ease-in-out infinite alternate-reverse}
-@keyframes sh{from{transform:rotate(-14deg)}to{transform:rotate(10deg)}}
-.ft{transform-origin:74px 94px;animation:push 1.1s ease-in-out infinite alternate}
-@keyframes push{to{transform:rotate(-26deg)}}
-.lt{transform-origin:115px 117px;animation:tipl 1.2s ease-out .35s infinite alternate}
-@keyframes tipl{to{transform:translateX(9px) rotate(26deg)}}
-.rc{animation:rice 1.2s ease-in .5s infinite}
-@keyframes rice{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--dx,8px),20px);opacity:0}}
-#tools{position:fixed;top:8px;right:8px;z-index:6;display:flex;gap:6px}
-#tools button{padding:5px 10px;font-size:12px;background:rgba(255,255,255,.18)}
-#net{position:fixed;bottom:6px;right:8px;font-size:11px;z-index:6;padding:2px 9px;border-radius:10px;background:rgba(0,0,0,.4)}
-body.lite{animation:none;background:linear-gradient(135deg,#1b0b3a,#0b2a5b,#3a0b4f)}
-body.lite .blob{display:none}
-body.lite .glass,body.lite .ov{backdrop-filter:none;-webkit-backdrop-filter:none}
-body.lite .glass{background:rgba(50,30,110,.6)}
-body.lite #scene,body.lite #cube,body.lite #scene.wait,body.lite #scene.six #cube{filter:none!important}
-body.lite #scene.wait{animation:none}
-body.lite .tk{box-shadow:0 2px 4px #0008}
-body.lite .tk.can{box-shadow:0 0 0 3px #fff}
-body.lite .c,body.lite .yard,body.lite .yi,body.lite #ctr{box-shadow:none}
-body.lite .f{box-shadow:inset 0 0 8px #fff8}
-#pick{display:grid;grid-template:repeat(2,52px)/repeat(2,64px);gap:8px;justify-content:center;margin:6px 0 10px}
-#pick button{padding:0;color:#111;font-weight:800}
-#presets{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:6px 0}
-#presets button{padding:6px 10px;font-size:12px}
-
-/* --- dhol boy that appears when a goti leaves the yard --- */
-.dm{position:absolute;z-index:13;pointer-events:none;transform:translate(-50%,-50%) scale(0);opacity:0;transition:transform .5s cubic-bezier(.2,1.6,.4,1),opacity .3s}
-.dm.show{transform:translate(-50%,-50%) scale(1);opacity:1}
-.dm svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 3px 4px #0009)}
-.dm:not(.show) svg *{animation-play-state:paused}
-body.lite .dm svg{filter:none}
-.dm-bd{animation:dmbob .26s ease-in-out infinite alternate}
-@keyframes dmbob{from{transform:translateY(0)}to{transform:translateY(-3px)}}
-.dm-l{transform-origin:44px 128px;animation:dml .26s ease-in-out infinite alternate}
-.dm-r{transform-origin:152px 112px;animation:dml .26s ease-in-out infinite alternate-reverse}
-@keyframes dml{from{transform:rotate(-16deg)}to{transform:rotate(12deg)}}
-.dm-hd{transform-origin:98px 108px;animation:dmhd .52s ease-in-out infinite alternate}
-@keyframes dmhd{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
-.dm-tf{transform-origin:112px 36px;animation:dmtf .26s ease-in-out infinite alternate}
-@keyframes dmtf{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
-.dm-mo{transform-origin:97px 97px;animation:dmmo .26s ease-in-out infinite alternate}
-@keyframes dmmo{from{transform:scaleY(.55)}to{transform:scaleY(1)}}
-.dm-ey{transform-origin:97px 82px;animation:dmey 2.1s infinite}
-@keyframes dmey{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
-.dm-dr{transform-origin:110px 172px;animation:dmdr .26s ease-in-out infinite alternate}
-@keyframes dmdr{from{transform:scale(1)}to{transform:scale(1.035)}}
-.dm-ts{animation:dmts .52s ease-in-out infinite alternate}
-.dm-ts:nth-of-type(2n){animation-direction:alternate-reverse}
-@keyframes dmts{from{transform:rotate(-12deg)}to{transform:rotate(12deg)}}
-
-/* --- name boxes, leaderboard --- */
-.ov .glass{max-height:96vh;overflow:auto}
-#opts .row{gap:6px}
-.nm{flex:1;min-width:70px;max-width:150px;padding:7px 8px;font-size:14px;border-radius:10px}
-.sr{display:flex;align-items:center;gap:8px;padding:7px 10px;margin:5px 0;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);text-align:left}
-.sr .rk{font-size:20px;width:30px;text-align:center;flex:none}
-.sr .nm2{flex:1;min-width:0}
-.sr .nm2 b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sr small{display:block;opacity:.85;font-size:11px;line-height:1.35}
-.sr .wn{font-size:17px;font-weight:800;flex:none;color:#ffd23f}
-.sr .sx{padding:2px 7px;font-size:11px;flex:none;background:rgba(255,255,255,.12)}
-#stList{max-height:54vh;overflow:auto;min-width:min(80vw,320px)}
-</style></head><body>
-<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
-<h1>✨ GLASS LUDO ✨</h1>
-<div id="board" class="glass"><div id="grid"></div></div>
-<div id="ui" class="glass">
-  <div id="scene" class="wait"><div id="cube"></div></div>
-  <div id="st">…</div>
-  <button id="skip" class="hide" title="Skip absent player">⏭</button><button id="snd">🔊</button>
-</div>
-<div id="stamp">✍️ Developed by Yoginder Singh Negi</div>
-<div id="tools"><button id="lite"></button><button id="spd"></button></div><div id="tl"><button id="quit" class="hide">🚪 Quit</button><button id="fin" class="hide">🏁 Finish</button><button id="sync" class="hide" title="Refresh the game for all players">🔄 Sync</button></div><div id="net" class="hide"></div>
-<div id="toonL" class="toon"><div class="bub">Chal haat! 🥁</div><svg viewBox="0 0 120 120"><g class="dh">
-  <path d="M28 120 Q28 76 60 76 Q92 76 92 120Z" fill="#ff8c1a"/>
-  <ellipse cx="60" cy="98" rx="40" ry="14" fill="#8b4a1c"/>
-  <ellipse cx="21" cy="98" rx="7" ry="14" fill="#f5deb3" stroke="#6b3410" stroke-width="2"/>
-  <ellipse cx="99" cy="98" rx="7" ry="14" fill="#f5deb3" stroke="#6b3410" stroke-width="2"/>
-  <path d="M26 87 L40 109 L54 87 L68 109 L82 87 L94 107" stroke="#ffd23f" stroke-width="2.5" fill="none"/>
-  <circle cx="60" cy="52" r="20" fill="#f2b27a"/>
-  <path d="M38 50 Q38 22 60 22 Q82 22 82 50 Q60 40 38 50Z" fill="#e63946"/>
-  <path d="M42 36 Q60 26 78 36" stroke="#ffd23f" stroke-width="3" fill="none"/>
-  <circle cx="60" cy="26" r="5" fill="#ffd23f"/>
-  <circle cx="52" cy="54" r="2.6" fill="#222"/><circle cx="68" cy="54" r="2.6" fill="#222"/>
-  <path d="M47 63 Q54 57 60 62 Q66 57 73 63 Q66 68 60 64 Q54 68 47 63Z" fill="#222"/>
-  <ellipse cx="60" cy="71" rx="5" ry="3.5" fill="#7a1f1f"/>
-  <g class="s1"><line x1="42" y1="84" x2="24" y2="68" stroke="#f2b27a" stroke-width="7" stroke-linecap="round"/><line x1="24" y1="68" x2="14" y2="50" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/></g>
-  <g class="s2"><line x1="78" y1="84" x2="96" y2="68" stroke="#f2b27a" stroke-width="7" stroke-linecap="round"/><line x1="96" y1="68" x2="106" y2="50" stroke="#8b5a2b" stroke-width="3.5" stroke-linecap="round"/></g>
-</g></svg></div>
-<div id="toonR" class="toon"><div class="bub">Griha Pravesh 🏠</div><svg viewBox="0 0 140 120"><g>
-  <path d="M34 118 L50 62 L78 62 L94 118Z" fill="#ff4fa3"/>
-  <path d="M50 62 Q64 52 80 62 L86 92 Q70 82 52 88Z" fill="#ffd23f" opacity="0.92"/>
-  <path d="M40 112 L88 112" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/>
-  <circle cx="64" cy="42" r="19" fill="#f6c28b"/>
-  <path d="M44 40 Q44 18 64 18 Q84 18 84 40 Q76 27 64 27 Q52 27 44 40Z" fill="#2b1b17"/>
-  <ellipse cx="42" cy="52" rx="5" ry="11" fill="#2b1b17"/><ellipse cx="86" cy="52" rx="5" ry="11" fill="#2b1b17"/>
-  <circle cx="42" cy="42" r="4" fill="#ff4fa3"/><circle cx="86" cy="42" r="4" fill="#ff4fa3"/>
-  <circle cx="64" cy="31" r="2.2" fill="#e63946"/>
-  <ellipse cx="57" cy="44" rx="3" ry="3.6" fill="#222"/><ellipse cx="71" cy="44" rx="3" ry="3.6" fill="#222"/>
-  <circle cx="58" cy="42.6" r="1.1" fill="#fff"/><circle cx="72" cy="42.6" r="1.1" fill="#fff"/>
-  <circle cx="51" cy="51" r="3.5" fill="#ff8fa3" opacity="0.6"/><circle cx="77" cy="51" r="3.5" fill="#ff8fa3" opacity="0.6"/>
-  <path d="M58 52 Q64 58 70 52" stroke="#a33" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <g class="ft"><rect x="70" y="94" width="9" height="20" rx="4" fill="#f6c28b" transform="rotate(-8 74 94)"/><ellipse cx="82" cy="116" rx="10" ry="4.5" fill="#f6c28b"/><path d="M72 111 Q81 106 91 111" stroke="#ffd23f" stroke-width="2" fill="none"/></g>
-  <g class="lt"><path d="M100 104 Q96 86 108 80 L122 80 Q134 86 130 104 Q130 117 115 117 Q100 117 100 104Z" fill="#e0a526" stroke="#b07a0f" stroke-width="2"/><ellipse cx="115" cy="80" rx="9" ry="3.5" fill="#fff2b0"/><circle cx="115" cy="72" r="8" fill="#8b5a2b"/><path d="M107 74 Q100 64 108 61 M123 74 Q130 64 122 61" stroke="#2ea043" stroke-width="4" fill="none" stroke-linecap="round"/></g>
-  <circle class="rc" cx="124" cy="112" r="2" fill="#fff" style="--dx:10px"/><circle class="rc" cx="130" cy="114" r="2" fill="#fff" style="--dx:16px;animation-delay:.7s"/><circle class="rc" cx="120" cy="114" r="2" fill="#fff" style="--dx:6px;animation-delay:.9s"/>
-</g></svg></div>
-<div id="toast"></div>
-<div id="setup" class="ov"><div class="glass">
-  <h2 style="margin:0 0 2px">🎲 New Game</h2>
-  <div class="by">Developed by Yoginder Singh Negi</div>
-  <div style="font-size:13px;opacity:.9">Choose corners, player type and a name for each human player (first 3 letters shown in their start box)</div>
-  <div id="presets"><button data-p="d1">2P ⤡ Red–Yellow</button><button data-p="d2">2P ⤢ Green–Blue</button><button data-p="p3">3 Players</button><button data-p="p4">4 Players</button></div>
-  <div id="opts"></div>
-  <div class="row"><span>🏁 Win by getting</span><select id="winN"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
-  <div style="font-size:12px;opacity:.8">Tip: with 2 players use opposite corners.</div>
-  <div style="margin:10px 0 4px;font-size:13px;opacity:.85;text-align:center">Board theme</div>
-  <div id="themePick">
-    <button type="button" data-theme="glass" class="on">✨ Glass</button>
-    <button type="button" data-theme="classic">🎲 Classic</button>
-    <button type="button" data-theme="neon">💜 Neon</button>
-  </div>
-  <button id="go">▶ Start Game</button>
-  <div style="margin-top:12px"><button id="goOnline" style="background:linear-gradient(90deg,#2de08a88,#4dabff88);font-size:17px">🌐 Play Online with Friends</button></div>
-  <div id="srvStat" class="by" style="margin-top:10px"></div>
-  <div style="margin-top:10px"><button id="goStats" style="background:linear-gradient(90deg,#ffd23f77,#ff4d6d77);font-size:16px">🏆 Leaderboard &amp; Stats</button></div>
-</div></div>
-
-<button id="voiceBtn" title="Voice call">🎤</button>
-<div id="voiceHint"></div>
-<div id="voicePlay"></div>
-<button id="chatBtn" class="hide" title="Chat">💬<span id="chatBadge">0</span></button>
-<div id="chatPanel" class="glass">
-  <div id="chatLog"></div>
-  <form id="chatForm" autocomplete="off">
-    <input id="chatIn" maxlength="120" placeholder="Type a message…" enterkeyhint="send">
-    <button type="submit" id="chatSend">Send</button>
-  </form>
-</div>
-<div id="resume" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
-  <h2 style="margin:0 0 6px">👋 Welcome back</h2>
-  <div id="rsOn" class="hide"><div>🌐 Online game · Room <b id="rsRoom"></b></div>
-    <div class="row"><button id="rsOnGo">▶ Resume</button><button id="rsOnX">✖ Close session</button></div></div>
-  <div id="rsOff" class="hide"><div>🎲 Offline game · <span id="rsInfo"></span></div>
-    <div class="row"><button id="rsOffGo">▶ Resume</button><button id="rsOffX">✖ Close session</button></div></div>
-  <div id="rsErr" style="color:#ffb3c1;min-height:18px;margin:4px 0"></div>
-  <button id="rsNew">🆕 Start a new game</button>
-</div></div>
-<div id="online" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
-  <h2 style="margin:0 0 4px">🌐 Play Online</h2>
-  <div id="onJoin">
-    <div id="srv" class="hide" style="font-size:12px;opacity:.9;margin:4px 0 8px;word-break:break-all"></div>
-    <input id="pname" maxlength="14" placeholder="Your name" autocomplete="off">
-    <div class="row"><button id="mkRoom" style="width:100%">➕ Create room (be the host)</button></div>
-    <div style="opacity:.8;font-size:13px">— or join a friend's room —</div>
-    <div class="row"><input id="rcode" maxlength="4" placeholder="CODE" autocomplete="off"><button id="joinRoom">Join</button></div>
-  </div>
-  <div id="onLobby" class="hide">
-    <div style="opacity:.85;font-size:13px">Room code</div><div id="rc"></div>
-    <div class="row"><button id="shareBtn">📤 Invite friends</button><button id="copyBtn">📋 Copy link</button></div>
-    <div style="font-size:13px;opacity:.85;margin-top:6px">Pick your start corner</div>
-    <div id="pick"></div>
-    <div id="seats"></div>
-    <div id="lobMsg" class="by"></div>
-    <div id="winRow" class="row hide"><span>🏁 Win by getting</span><select id="winLobby"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
-    <button id="startOn" class="hide" style="font-size:18px;background:linear-gradient(90deg,#ff4d6d99,#4dabff99)">▶ Start game</button>
-  </div>
-  <div id="onErr" style="color:#ffb3c1;margin:6px 0;min-height:18px"></div>
-  <button id="onBack">← Back</button>
-</div></div>
-<div id="win" class="ov hide"><div class="glass"><h1 id="wt" style="font-size:34px;-webkit-text-fill-color:#fff"></h1><div id="rank" style="margin:8px 0;min-width:220px"></div><div class="by">Developed by Yoginder Singh Negi</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button id="again">Play again</button><button id="wStats">🏆 Leaderboard</button></div></div></div>
-<div id="stats" class="ov hide"><div class="glass" style="width:min(94vw,400px)">
-  <h2 style="margin:0 0 2px">🏆 Leaderboard</h2>
-  <div class="by">Ranked by wins · saved on this device</div>
-  <div id="stList"></div>
-  <div class="row" style="justify-content:center"><button id="stClose">← Back</button><button id="stReset">🗑 Reset all</button></div>
-</div></div>
-
-<script>
 /* ---------- geometry (L=6 -> standard 15x15 board, 52-step track) ---------- */
 const L=6,N=2*L+3,M=L+1,Q=2*L+1,R=4*Q,LAST=R-2,HB=1000,FIN_P=HB+L-1;
 const COLORS=['red','green','yellow','blue'];
@@ -1100,7 +1095,7 @@ const onErr=t=>{$('#onErr').textContent=t||''};
 const inviteUrl=()=>(location.protocol==='file:'?(BASE||location.origin)+'/':location.origin+location.pathname.replace(/index\.html$/,''))+`?room=${me.room}`;
 function enter(res){if(res.error){onErr(res.error);return}
   nextRoll=0;selfRolls=0;predicted.length=0;outAt=0;
-  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false,name:($('#pname').value||'').trim()||'Player'};lastN=0;started=false;names={};showChatBtn(true);showVoiceBtn(true);
+  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false,name:($('#pname').value||'').trim()||'Player'};lastN=0;started=false;names={};showVoiceBtn(true);
   try{localStorage.setItem('ludoSess',JSON.stringify({room:me.room,id:me.id,name:$('#pname').value.trim()}))}catch(e){}
   $('#onJoin').classList.add('hide');$('#onLobby').classList.remove('hide');$('#rc').textContent=me.room;connect()}
 function connect(){pollGen++;synced=false;FAST=true;openWS(pollGen);pingLoop(pollGen)}
@@ -1147,7 +1142,6 @@ function handle(d){
   else if(d.t==='start'){gameLive=true;appliedN=d.n||0;selfMoves=selfRolls=0;predicted.length=0;outAt=0;WINN=d.win||4;players=d.players;mode={red:'off',green:'off',yellow:'off',blue:'off'};players.forEach(c=>mode[c]='human');started=true;
     MQ.length=0;$('#online').classList.add('hide');$('#setup').classList.add('hide');$('#win').classList.add('hide');newGame()}
   else if(d.t==='resync'){if(!FAST&&synced&&(d.hard||Date.now()-lastResync>8000)){if(d.hard)hardRejoin();else resyncNow('requested by '+pn(d.c))}}   /* someone pressed Sync (ignored while replaying, and by the phone that pressed it) */
-  else if(d.t==='chat'){addChatMsg(d.name||pn(d.c),d.text,d.c)}
   else if(d.t==='voice'){playVoice(d.name||pn(d.c),d.data,d.mime,d.c)}
   else if(d.t==='rtc'){handleRtc(d)}
   else if(d.t==='roll'||d.t==='move'||d.t==='skip'||d.t==='finish'||d.t==='left'){MQ.push(d);if(!qrun)runQ()}}
@@ -1258,7 +1252,7 @@ if(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&
 if(LITE==='1')setLite(true);else if(LITE==='0')setLite(false);
 else{setLite((navigator.hardwareConcurrency||8)<=4);   // slow phones: switch effects off automatically
   let fr=0;const t0=performance.now();(function f(){fr++;const dt=performance.now()-t0;if(dt<1500)requestAnimationFrame(f);else if(fr/(dt/1000)<40)setLite(true)})()}
-function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showChatBtn(false);showVoiceBtn(false);hangupVoice();const log=$('#chatLog');if(log)log.innerHTML=''}
+function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showVoiceBtn(false);hangupVoice();}
 $('#again').addEventListener('click',()=>{leaveOnline();$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')});
 function askServer(){const v=prompt('Enter your game server address, e.g. https://your-name.onrender.com');if(!v)return false;
   const b=normBase(v);if(!b){alert('That address does not look right');return false}BASE=b;try{localStorage.setItem('ludoServer',BASE)}catch(e){}return true}
@@ -1300,18 +1294,18 @@ $('#rsNew').onclick=()=>{$('#resume').classList.add('hide');$('#setup').classLis
 /* ========== THEME ========== */
 function applyTheme(name){
   name = name || 'glass';
-  document.body.classList.remove('theme-glass','theme-classic','theme-neon');
+  document.body.classList.remove('theme-glass','theme-classic','theme-arena','theme-neon');
   if(name !== 'glass') document.body.classList.add('theme-'+name);
   try{localStorage.setItem('ludoTheme', name)}catch(e){}
-  document.querySelectorAll('#themePick button').forEach(b=>{
+  document.querySelectorAll('#themePick button, #themePick2 button').forEach(b=>{
     b.classList.toggle('on', b.getAttribute('data-theme')===name);
   });
 }
 (function(){
   let t='glass';
-  try{t=localStorage.getItem('ludoTheme')||'glass'}catch(e){}
+  try{t=localStorage.getItem('ludoTheme')||'glass';if(t==='neon')t='arena'}catch(e){}
   applyTheme(t);
-  document.querySelectorAll('#themePick button').forEach(b=>{
+  document.querySelectorAll('#themePick button, #themePick2 button').forEach(b=>{
     b.onclick=()=>applyTheme(b.getAttribute('data-theme'));
   });
 })();
@@ -1319,137 +1313,6 @@ function applyTheme(name){
 
 /* ========== VOICE (push-to-talk) ========== */
 let mediaRec=null, recChunks=[], recStream=null, voiceSending=false;
-function showVoiceBtn(on){
-  const b=$('#voiceBtn');
-  if(!b)return;
-  b.style.display = on ? 'flex' : 'none';
-  if(!on) stopRec(true);
-}
-async function startRec(){
-  if(voiceSending || !ONLINE || !me) return;
-  try{
-    if(!recStream){
-      recStream = await navigator.mediaDevices.getUserMedia({audio:true});
-    }
-    recChunks = [];
-    const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus'
-               : MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm'
-               : MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : '';
-    mediaRec = mime ? new MediaRecorder(recStream, {mimeType:mime}) : new MediaRecorder(recStream);
-    mediaRec.ondataavailable = e => { if(e.data && e.data.size) recChunks.push(e.data); };
-    mediaRec.onstop = () => sendVoiceClip(mediaRec.mimeType || mime || 'audio/webm');
-    mediaRec.start();
-    $('#voiceBtn').classList.add('rec');
-    $('#voiceHint').style.display = 'block';
-    // auto-stop after 8s
-    clearTimeout(window._vto);
-    window._vto = setTimeout(()=>stopRec(false), 8000);
-  }catch(err){
-    alert('Microphone permission needed for voice chat');
-  }
-}
-function stopRec(cancel){
-  clearTimeout(window._vto);
-  $('#voiceBtn').classList.remove('rec');
-  $('#voiceHint').style.display = 'none';
-  if(!mediaRec) return;
-  const rec = mediaRec;
-  mediaRec = null;
-  if(cancel){
-    try{rec.onstop=null;rec.stop()}catch(e){}
-    recChunks=[];
-    return;
-  }
-  try{rec.stop()}catch(e){}
-}
-function sendVoiceClip(mime){
-  if(!recChunks.length || voiceSending) {recChunks=[];return}
-  voiceSending = true;
-  const blob = new Blob(recChunks, {type: mime});
-  recChunks = [];
-  if(blob.size < 400 || blob.size > 130000){ voiceSending=false; return; } // too short or too big
-  const reader = new FileReader();
-  reader.onload = () => {
-    const b64 = (reader.result || '').split(',')[1] || '';
-    if(b64) post({t:'voice', data:b64, mime:mime});
-    voiceSending = false;
-  };
-  reader.onerror = () => { voiceSending=false; };
-  reader.readAsDataURL(blob);
-}
-function playVoice(name, b64, mime, color){
-  try{
-    const bin = atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
-    const blob = new Blob([arr], {type: mime||'audio/webm'});
-    const url = URL.createObjectURL(blob);
-    const a = new Audio(url);
-    a.onended = () => URL.revokeObjectURL(url);
-    a.play().catch(()=>{});
-    const el = $('#voicePlay');
-    if(el){
-      el.style.display='block';
-      el.textContent = '🔊 '+(name||'Player')+' speaking…';
-      if(color && HEX[color]) el.style.borderLeft = '4px solid '+HEX[color];
-      clearTimeout(window._vplay);
-      window._vplay = setTimeout(()=>{el.style.display='none'}, 4000);
-    }
-  }catch(e){}
-}
-// Hold-to-talk bindings
-(function(){
-  const btn = $('#voiceBtn');
-  if(!btn) return;
-  const down = e => { e.preventDefault(); startRec(); };
-  const up = e => { e.preventDefault(); stopRec(false); };
-  btn.addEventListener('mousedown', down);
-  btn.addEventListener('mouseup', up);
-  btn.addEventListener('mouseleave', () => stopRec(false));
-  btn.addEventListener('touchstart', down, {passive:false});
-  btn.addEventListener('touchend', up);
-  btn.addEventListener('touchcancel', () => stopRec(true));
-})();
-/* ========== CHAT ========== */
-let chatOpen=false, chatUnread=0;
-function showChatBtn(on){
-  const b=$('#chatBtn');
-  if(!b)return;
-  b.classList.toggle('hide', !on);
-  if(!on){chatOpen=false;$('#chatPanel').classList.remove('open');chatUnread=0;updChatBadge()}
-}
-function updChatBadge(){
-  const el=$('#chatBadge');
-  if(!el)return;
-  if(chatUnread>0 && !chatOpen){el.style.display='flex';el.textContent=chatUnread>9?'9+':chatUnread}
-  else el.style.display='none';
-}
-function addChatMsg(name, text, color){
-  const log=$('#chatLog'); if(!log)return;
-  const d=document.createElement('div');
-  d.className='msg';
-  const b=document.createElement('b');
-  b.textContent=(name||'?')+':';
-  if(color && HEX[color]) b.style.color=HEX[color];
-  d.appendChild(b);
-  d.appendChild(document.createTextNode(' '+text));
-  log.appendChild(d);
-  log.scrollTop=log.scrollHeight;
-  if(!chatOpen){chatUnread++;updChatBadge()}
-}
-$('#chatBtn').onclick=()=>{
-  chatOpen=!chatOpen;
-  $('#chatPanel').classList.toggle('open', chatOpen);
-  if(chatOpen){chatUnread=0;updChatBadge();$('#chatIn').focus()}
-};
-$('#chatForm').onsubmit=e=>{
-  e.preventDefault();
-  const inp=$('#chatIn');
-  const text=(inp.value||'').trim();
-  if(!text || !ONLINE || !me)return;
-  inp.value='';
-  post({t:'chat', text:text});
-};
 /* Startup: prefer Resume whenever a session exists. Invite links also try to resume first. */
 (function(){
   const q=(new URLSearchParams(location.search).get('room')||'').toUpperCase();
@@ -1992,10 +1855,6 @@ def api_send(d):
                     r.request_resync("?")
         elif t in ("skip", "finish") and cid == r.host:
             r.append({"t": t})
-        elif t == "chat":
-            text = str(msg.get("text") or "").strip()[:120]
-            if text:
-                r.transient({"t": "chat", "c": color, "name": r.names.get(cid, "Player"), "text": text})
         elif t == "voice":
             data = str(msg.get("data") or "")
             if 32 < len(data) <= 180000:
