@@ -146,8 +146,13 @@ body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0009)}
 @property --pd{syntax:'<color>';inherits:true;initial-value:#7a2cff}
 #scene{--pc:#ff7ae0;--pd:#7a2cff;transition:--pc .22s,--pd .22s;width:88px;height:88px;perspective:520px;cursor:pointer;touch-action:manipulation;padding:0;filter:drop-shadow(0 12px 10px #0009)}
 #cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.f{position:absolute;width:88px;height:88px;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 30% 25%,#fff9c4 0%,#ffeb3b 35%,#fbc02d 70%,#f9a825 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:12px;box-shadow:inset 0 0 12px #fff8,inset 0 -4px 10px #c79100aa,0 6px 14px #0007;border:3px solid #ffe082}
-.f span{background:#212121!important;box-shadow:inset 0 1px 2px #0008,0 1px 1px #fff4!important}
+.f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
+/* Classic theme: soft frosted glass dice */
+body.theme-classic .f{background:radial-gradient(circle at 28% 22%,#ffffff 0%,#e8f5e9 40%,#c8e6c9 100%);border:2px solid #a5d6a7;box-shadow:inset 0 0 14px #fff,0 4px 12px #0004}
+body.theme-classic .f span{background:#2e7d32!important;box-shadow:0 0 4px #1b5e20!important}
+/* Arena theme: cool blue glass dice */
+body.theme-arena .f{background:radial-gradient(circle at 28% 22%,#e3f2fd 0%,#90caf9 45%,#42a5f5 100%);border:2px solid #64b5f6;box-shadow:inset 0 0 16px #fff8,0 0 12px #1e88e588,0 6px 14px #0006}
+body.theme-arena .f span{background:#0d47a1!important;box-shadow:0 0 6px #1565c0!important}
 .f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
 .f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
 #scene.wait{animation:bob 1.1s ease-in-out infinite}
