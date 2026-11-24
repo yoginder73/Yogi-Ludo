@@ -368,6 +368,7 @@ body.lite .dm svg{filter:none}
 </div></div>
 
 <script>
+const $=s=>document.querySelector(s);
 /* ========== LIVE VOICE (WebRTC group call, low-latency) ========== */
 const RTC_CFG = {
   iceServers: [
@@ -640,7 +641,7 @@ const YOFF={red:[0,0],green:[L+3,0],yellow:[L+3,L+3],blue:[0,L+3]};
 const yc=L/2,yd=L*.2,SPOT=[[yc-yd,yc-yd],[yc+yd,yc-yd],[yc-yd,yc+yd],[yc+yd,yc+yd]];
 const cc=M+.5,FIN={red:[cc-.75,cc],green:[cc,cc-.75],yellow:[cc+.75,cc],blue:[cc,cc+.75]};
 let FAST=false,SP=.5,BACKLOG=0;try{const v=parseFloat(localStorage.getItem('ludoSP'));if(v>0)SP=v}catch(e){}
-const $=s=>document.querySelector(s),sleep=ms=>new Promise(r=>setTimeout(r,FAST?0:ms*SP*(BACKLOG>2?.15:1)));
+const sleep=ms=>new Promise(r=>setTimeout(r,FAST?0:ms*SP*(BACKLOG>2?.15:1)));
 
 /* ---------- build board ---------- */
 const grid=$('#grid'),yardNm={};grid.style.gridTemplate=`repeat(${N},1fr)/repeat(${N},1fr)`;
