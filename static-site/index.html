@@ -19,7 +19,7 @@ body:not(:has(#setup:not(.hide))){animation:none}
 .b3{width:260px;height:260px;background:radial-gradient(circle,#ffd23f 0,#ffd23f00 70%);top:40%;right:-100px;animation-delay:-7s}
 .b4{width:280px;height:280px;background:radial-gradient(circle,#4dabff 0,#4dabff00 70%);bottom:10%;left:-100px;animation-delay:-2s}
 @keyframes fl{to{transform:translate(60px,-50px) scale(1.2)}}
-h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;background:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;background:linear-gradient(90deg,#ff4d6d,#ffd23f,#2de08a,#4dabff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .glass{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.5)}
 #board{--bs:min(98vw,calc(100vh - 212px),760px);--bs:min(98vw,calc(100dvh - 212px),760px);position:relative;width:var(--bs);height:var(--bs);border-radius:20px;z-index:1;overflow:hidden;touch-action:manipulation;backdrop-filter:none;-webkit-backdrop-filter:none}
 #grid{position:absolute;inset:0;display:grid}
@@ -30,39 +30,35 @@ body.ios .glass,body.ios .ov{backdrop-filter:none;-webkit-backdrop-filter:none} 
 body.ios .glass{background:rgba(50,30,110,.55)}
 
 /* ========== THEMES (Glass = default) ========== */
-/* Classic: traditional flat Ludo (bright green/red/yellow/blue) */
-body.theme-classic{background:#2e7d32;background-size:100% 100%;animation:none}
+/* Classic: traditional flat Ludo board (green/red/yellow/blue) */
+body.theme-classic{background:#1a4a2e;background-size:100% 100%;animation:none}
 body.theme-classic .b1,body.theme-classic .b2,body.theme-classic .b3,body.theme-classic .b4{display:none}
-body.theme-classic .glass{background:#ffffff;border:3px solid #1b5e20;color:#1b5e20;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 28px #0005}
-body.theme-classic h1{background:linear-gradient(90deg,#c62828,#2e7d32,#f9a825,#1565c0);-webkit-background-clip:text;background-clip:text}
-body.theme-classic .c{background:#fafafa;border:1px solid #9e9e9e;border-radius:3px;box-shadow:none;color:#333;font-weight:800}
-body.theme-classic .c.col{color:#fff;text-shadow:0 1px 2px #0006}
-body.theme-classic .yard{border-radius:10px;border:4px solid #fff;box-shadow:inset 0 0 0 2px rgba(0,0,0,.15),0 2px 8px #0003}
-body.theme-classic #board{border:6px solid #1b5e20;border-radius:6px;box-shadow:0 10px 30px #0007;background:#e8e8e8}
-body.theme-classic button{background:#fff;color:#1b5e20;border:2px solid #1b5e20;font-weight:700}
-body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:2px solid #1b5e20}
-body.theme-classic .ov{background:rgba(0,40,0,.4)}
-body.theme-classic #ctr{border-radius:4px;border:3px solid #fff}
-body.theme-classic .by,body.theme-classic .row span{color:#1b5e20}
-body.theme-classic #scene{filter:drop-shadow(0 8px 12px #0008)}
+body.theme-classic .glass{background:#f7f7f7;border:2px solid #333;color:#222;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 24px #0005}
+body.theme-classic h1{background:linear-gradient(90deg,#e53935,#43a047,#fdd835,#1e88e5);-webkit-background-clip:text;background-clip:text}
+body.theme-classic .c{background:#fff;border:1px solid #bbb;border-radius:4px;box-shadow:none;color:#333}
+body.theme-classic .c.col{color:#fff;text-shadow:none}
+body.theme-classic .yard{border-radius:8px;border:3px solid #fff;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
+body.theme-classic #board{border:5px solid #222;border-radius:8px;box-shadow:0 8px 28px #0006;background:#eee}
+body.theme-classic button{background:#fff;color:#222;border:2px solid #333}
+body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:1px solid #333}
+body.theme-classic .ov{background:rgba(0,0,0,.45)}
+body.theme-classic #ctr{border-radius:4px}
+body.theme-classic .by,body.theme-classic .row span{color:#333}
 
-/* Arena: bold app-style board (strong solid colors) */
-body.theme-arena{background:linear-gradient(160deg,#0a1628,#0d2137 50%,#123a5c);background-size:100% 100%;animation:none}
+/* Arena: bold modern board like popular Ludo apps */
+body.theme-arena{background:linear-gradient(160deg,#0d1b4a,#1a237e 50%,#0d47a1);background-size:100% 100%;animation:none}
 body.theme-arena .b1{background:radial-gradient(circle,#e53935 0,#e5393500 70%)}
 body.theme-arena .b2{background:radial-gradient(circle,#43a047 0,#43a04700 70%)}
 body.theme-arena .b3{background:radial-gradient(circle,#fdd835 0,#fdd83500 70%)}
 body.theme-arena .b4{background:radial-gradient(circle,#1e88e5 0,#1e88e500 70%)}
-body.theme-arena .glass{background:#ffffff;border:3px solid #1565c0;color:#0d1b4a;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 12px 32px #0007}
-body.theme-arena h1{background:linear-gradient(90deg,#e53935,#f9a825,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:#ffffff;border:1px solid #bbdefb;border-radius:6px;box-shadow:0 1px 4px #0003;color:#0d47a1;font-weight:800}
-body.theme-arena .c.col{color:#fff;text-shadow:0 1px 2px #0005}
-body.theme-arena .yard{border-radius:14px;border:4px solid #fff;box-shadow:0 4px 14px #0005,inset 0 0 0 2px rgba(0,0,0,.1)}
-body.theme-arena #board{border:5px solid #0d47a1;border-radius:18px;box-shadow:0 14px 36px #0008;background:#e3f2fd}
-body.theme-arena button{background:linear-gradient(180deg,#42a5f5,#1565c0);color:#fff;border:none;font-weight:700}
-body.theme-arena select,body.theme-arena input{background:#fff;color:#0d1b4a;border:2px solid #1565c0}
-body.theme-arena .ov{background:rgba(10,22,40,.6)}
-body.theme-arena #ctr{border:3px solid #fff}
-body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0009)}
+body.theme-arena .glass{background:rgba(255,255,255,.95);border:2px solid #1565c0;color:#0d1b4a;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px #0006}
+body.theme-arena h1{background:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text}
+body.theme-arena .c{background:#fff;border:1px solid #90caf9;border-radius:6px;box-shadow:0 1px 3px #0002;color:#1565c0}
+body.theme-arena .c.col{color:#fff}
+body.theme-arena .yard{border-radius:12px;border:3px solid #fff;box-shadow:0 4px 12px #0004}
+body.theme-arena #board{border:4px solid #0d47a1;border-radius:16px;box-shadow:0 12px 32px #0007}
+body.theme-arena button{background:linear-gradient(180deg,#42a5f5,#1565c0);color:#fff;border:none}
+body.theme-arena .ov{background:rgba(13,27,74,.55)}
 
 
 
@@ -89,7 +85,7 @@ body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0009)}
  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
 .yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
 .yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
-#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#43a047 0 90deg,#fdd835 90deg 180deg,#1e88e5 180deg 270deg,#e53935 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:2px solid #fff}
+#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#2de08a 0 90deg,#ffd23f 90deg 180deg,#4dabff 180deg 270deg,#ff4d6d 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:1px solid #fff9}
 .tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
 .tk::after{content:"";position:absolute;left:22%;top:14%;width:32%;height:22%;border-radius:50%;background:#fffc;filter:blur(1px)}
 .tk.can{z-index:9;animation:hop .5s ease-in-out infinite;box-shadow:0 0 0 3px #fff,0 0 18px 7px currentColor}
@@ -99,8 +95,7 @@ body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0009)}
 @property --pd{syntax:'<color>';inherits:true;initial-value:#7a2cff}
 #scene{--pc:#ff7ae0;--pd:#7a2cff;transition:--pc .22s,--pd .22s;width:88px;height:88px;perspective:520px;cursor:pointer;touch-action:manipulation;padding:0;filter:drop-shadow(0 12px 10px #0009)}
 #cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.f{position:absolute;width:88px;height:88px;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 30% 25%,#fff9c4 0%,#ffeb3b 35%,#fbc02d 70%,#f9a825 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:12px;box-shadow:inset 0 0 12px #fff8,inset 0 -4px 10px #c79100aa,0 6px 14px #0007;border:3px solid #ffe082}
-.f span{background:#212121!important;box-shadow:inset 0 1px 2px #0008,0 1px 1px #fff4!important}
+.f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
 .f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
 .f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
 #scene.wait{animation:bob 1.1s ease-in-out infinite}
@@ -583,7 +578,7 @@ function playVoice(){ /* legacy short clips unused in live mode */ }
 /* ---------- geometry (L=6 -> standard 15x15 board, 52-step track) ---------- */
 const L=6,N=2*L+3,M=L+1,Q=2*L+1,R=4*Q,LAST=R-2,HB=1000,FIN_P=HB+L-1;
 const COLORS=['red','green','yellow','blue'];
-const HEX={red:'#e53935',green:'#43a047',yellow:'#fdd835',blue:'#1e88e5'};
+const HEX={red:'#ff4d6d',green:'#2de08a',yellow:'#ffd23f',blue:'#4dabff'};
 const NAME={red:'Red',green:'Green',yellow:'Yellow',blue:'Blue'};
 const START={red:0,green:Q,yellow:2*Q,blue:3*Q};
 const SAFE=new Set();COLORS.forEach(c=>{SAFE.add(START[c]);SAFE.add(START[c]+Q-5)});
