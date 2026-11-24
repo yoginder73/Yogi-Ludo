@@ -75,6 +75,48 @@ h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;backgr
 .yard{margin:0;border-radius:16px;border:1px solid rgba(255,255,255,.6)}
 body.ios .glass,body.ios .ov{backdrop-filter:none;-webkit-backdrop-filter:none}   /* iPhone Safari: blur layers wash out the board colours */
 body.ios .glass{background:rgba(50,30,110,.55)}
+
+/* ========== THEMES ========== */
+body.theme-classic{background:linear-gradient(160deg,#5c3a1e,#8b5a2b 40%,#c4a574);background-size:100% 100%;animation:none}
+body.theme-classic .b1,body.theme-classic .b2,body.theme-classic .b3,body.theme-classic .b4{display:none}
+body.theme-classic .glass{background:rgba(255,248,230,.92);border:2px solid #8b5a2b;color:#3a2210;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 6px 20px #0005}
+body.theme-classic h1{background:linear-gradient(90deg,#b22222,#daa520,#228b22,#1e90ff);-webkit-background-clip:text;background-clip:text}
+body.theme-classic .c{background:linear-gradient(145deg,#fff8e7,#f0e0c0);border:1px solid #c9a66b;color:#b8860b}
+body.theme-classic .c.col{color:#fff}
+body.theme-classic #board{border:4px solid #6b3e1a;box-shadow:0 8px 24px #0006}
+body.theme-classic button{background:linear-gradient(180deg,#f5d78e,#c9a227);color:#3a2210;border:1px solid #8b6914}
+body.theme-classic .ov{background:rgba(40,20,5,.55)}
+
+body.theme-neon{background:#0a0a12;background-size:100% 100%;animation:none}
+body.theme-neon .b1{background:radial-gradient(circle,#ff0066 0,#ff006600 70%)}
+body.theme-neon .b2{background:radial-gradient(circle,#00ff9d 0,#00ff9d00 70%)}
+body.theme-neon .b3{background:radial-gradient(circle,#ffe600 0,#ffe60000 70%)}
+body.theme-neon .b4{background:radial-gradient(circle,#00d4ff 0,#00d4ff00 70%)}
+body.theme-neon .glass{background:rgba(10,10,25,.75);border:1px solid #0ff6;box-shadow:0 0 20px #0ff3,inset 0 0 12px #0ff2;backdrop-filter:blur(12px)}
+body.theme-neon h1{background:linear-gradient(90deg,#ff0066,#ffe600,#00ff9d,#00d4ff);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 8px #0ff8)}
+body.theme-neon .c{background:linear-gradient(145deg,#1a1a2e,#12121f);border:1px solid #0ff5;color:#0ff;box-shadow:0 0 6px #0ff3}
+body.theme-neon .c.col{color:#fff;text-shadow:0 0 6px #fff}
+body.theme-neon #board{border:2px solid #0ff8;box-shadow:0 0 30px #0ff4}
+body.theme-neon button{background:linear-gradient(180deg,#1a1a3a,#0d0d22);color:#0ff;border:1px solid #0ff8;box-shadow:0 0 10px #0ff4}
+body.theme-neon .ov{background:rgba(0,0,10,.7)}
+
+/* ========== CHAT ========== */
+#chatBtn{position:fixed;bottom:14px;right:14px;z-index:40;width:48px;height:48px;border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;padding:0;box-shadow:0 4px 16px #0007}
+#chatPanel{position:fixed;bottom:70px;right:12px;width:min(92vw,320px);max-height:45vh;z-index:40;display:none;flex-direction:column;border-radius:16px;overflow:hidden}
+#chatPanel.open{display:flex}
+#chatLog{flex:1;overflow-y:auto;padding:10px;font-size:13px;line-height:1.35;max-height:32vh}
+#chatLog .msg{margin:4px 0;word-break:break-word}
+#chatLog .msg b{margin-right:4px}
+#chatForm{display:flex;gap:6px;padding:8px;border-top:1px solid rgba(255,255,255,.2)}
+#chatIn{flex:1;border:none;border-radius:10px;padding:8px 10px;font-size:14px;background:rgba(0,0,0,.25);color:inherit}
+#chatIn::placeholder{color:rgba(255,255,255,.5)}
+body.theme-classic #chatIn{background:rgba(255,255,255,.7);color:#3a2210}
+#chatSend{padding:8px 12px;border-radius:10px;font-size:13px}
+#chatBadge{position:absolute;top:-4px;right:-4px;background:#f44;color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center}
+#themePick{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+#themePick button{padding:8px 14px;border-radius:12px;font-size:13px;opacity:.7}
+#themePick button.on{opacity:1;outline:2px solid #fff;outline-offset:2px}
+
 /* player tag in each start box: first 3 letters, glossy gold lettering. Back layer = outline + stacked edge + soft shadow,
    front layer = gold gradient with a diagonal sheen and a thin bright rim */
 .yn{position:absolute;left:50%;top:50%;width:100%;transform:translate(-50%,-50%) rotate(-45deg);display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;
@@ -261,11 +303,26 @@ body.lite .dm svg{filter:none}
   <div id="opts"></div>
   <div class="row"><span>🏁 Win by getting</span><select id="winN"><option value="1">1 goti home</option><option value="2">2 goti home</option><option value="3">3 goti home</option><option value="4" selected>all 4 goti home</option></select></div>
   <div style="font-size:12px;opacity:.8">Tip: with 2 players use opposite corners.</div>
+  <div style="margin:10px 0 4px;font-size:13px;opacity:.85;text-align:center">Board theme</div>
+  <div id="themePick">
+    <button type="button" data-theme="glass" class="on">✨ Glass</button>
+    <button type="button" data-theme="classic">🎲 Classic</button>
+    <button type="button" data-theme="neon">💜 Neon</button>
+  </div>
   <button id="go">▶ Start Game</button>
   <div style="margin-top:12px"><button id="goOnline" style="background:linear-gradient(90deg,#2de08a88,#4dabff88);font-size:17px">🌐 Play Online with Friends</button></div>
   <div id="srvStat" class="by" style="margin-top:10px"></div>
   <div style="margin-top:10px"><button id="goStats" style="background:linear-gradient(90deg,#ffd23f77,#ff4d6d77);font-size:16px">🏆 Leaderboard &amp; Stats</button></div>
 </div></div>
+
+<button id="chatBtn" class="hide" title="Chat">💬<span id="chatBadge">0</span></button>
+<div id="chatPanel" class="glass">
+  <div id="chatLog"></div>
+  <form id="chatForm" autocomplete="off">
+    <input id="chatIn" maxlength="120" placeholder="Type a message…" enterkeyhint="send">
+    <button type="submit" id="chatSend">Send</button>
+  </form>
+</div>
 <div id="resume" class="ov hide"><div class="glass" style="width:min(90vw,360px)">
   <h2 style="margin:0 0 6px">👋 Welcome back</h2>
   <div id="rsOn" class="hide"><div>🌐 Online game · Room <b id="rsRoom"></b></div>
@@ -780,7 +837,7 @@ const onErr=t=>{$('#onErr').textContent=t||''};
 const inviteUrl=()=>(location.protocol==='file:'?(BASE||location.origin)+'/':location.origin+location.pathname.replace(/index\.html$/,''))+`?room=${me.room}`;
 function enter(res){if(res.error){onErr(res.error);return}
   nextRoll=0;selfRolls=0;predicted.length=0;outAt=0;
-  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false};lastN=0;started=false;names={};
+  ONLINE=true;me={id:res.id,color:res.color,room:res.room,host:false,name:($('#pname').value||'').trim()||'Player'};lastN=0;started=false;names={};showChatBtn(true);
   try{localStorage.setItem('ludoSess',JSON.stringify({room:me.room,id:me.id,name:$('#pname').value.trim()}))}catch(e){}
   $('#onJoin').classList.add('hide');$('#onLobby').classList.remove('hide');$('#rc').textContent=me.room;connect()}
 function connect(){pollGen++;synced=false;FAST=true;openWS(pollGen);pingLoop(pollGen)}
@@ -827,6 +884,7 @@ function handle(d){
   else if(d.t==='start'){gameLive=true;appliedN=d.n||0;selfMoves=selfRolls=0;predicted.length=0;outAt=0;WINN=d.win||4;players=d.players;mode={red:'off',green:'off',yellow:'off',blue:'off'};players.forEach(c=>mode[c]='human');started=true;
     MQ.length=0;$('#online').classList.add('hide');$('#setup').classList.add('hide');$('#win').classList.add('hide');newGame()}
   else if(d.t==='resync'){if(!FAST&&synced&&(d.hard||Date.now()-lastResync>8000)){if(d.hard)hardRejoin();else resyncNow('requested by '+pn(d.c))}}   /* someone pressed Sync (ignored while replaying, and by the phone that pressed it) */
+  else if(d.t==='chat'){addChatMsg(d.name||pn(d.c),d.text,d.c)}
   else if(d.t==='roll'||d.t==='move'||d.t==='skip'||d.t==='finish'||d.t==='left'){MQ.push(d);if(!qrun)runQ()}}
 function renderPick(){const b=$('#pick');b.innerHTML='';['red','green','blue','yellow'].forEach(c=>{const x=document.createElement('button');
   const taken=!!lobbySeats[c]&&c!==me.color;x.style.cssText=`background:${HEX[c]};border:3px solid ${c===me.color?'#fff':'transparent'};border-radius:14px;opacity:${taken?.25:1}`;
@@ -935,7 +993,7 @@ if(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&
 if(LITE==='1')setLite(true);else if(LITE==='0')setLite(false);
 else{setLite((navigator.hardwareConcurrency||8)<=4);   // slow phones: switch effects off automatically
   let fr=0;const t0=performance.now();(function f(){fr++;const dt=performance.now()-t0;if(dt<1500)requestAnimationFrame(f);else if(fr/(dt/1000)<40)setLite(true)})()}
-function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide')}
+function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showChatBtn(false);const log=$('#chatLog');if(log)log.innerHTML=''}
 $('#again').addEventListener('click',()=>{leaveOnline();$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')});
 function askServer(){const v=prompt('Enter your game server address, e.g. https://your-name.onrender.com');if(!v)return false;
   const b=normBase(v);if(!b){alert('That address does not look right');return false}BASE=b;try{localStorage.setItem('ludoServer',BASE)}catch(e){}return true}
@@ -973,6 +1031,66 @@ $('#rsOnX').onclick=async()=>{const s=store();if(s)await api('/api/leave',{room:
 $('#rsOffGo').onclick=resumeOffline;
 $('#rsOffX').onclick=()=>{clearLocal();refreshResume()};
 $('#rsNew').onclick=()=>{$('#resume').classList.add('hide');$('#setup').classList.remove('hide')};
+
+/* ========== THEME ========== */
+function applyTheme(name){
+  name = name || 'glass';
+  document.body.classList.remove('theme-glass','theme-classic','theme-neon');
+  if(name !== 'glass') document.body.classList.add('theme-'+name);
+  try{localStorage.setItem('ludoTheme', name)}catch(e){}
+  document.querySelectorAll('#themePick button').forEach(b=>{
+    b.classList.toggle('on', b.getAttribute('data-theme')===name);
+  });
+}
+(function(){
+  let t='glass';
+  try{t=localStorage.getItem('ludoTheme')||'glass'}catch(e){}
+  applyTheme(t);
+  document.querySelectorAll('#themePick button').forEach(b=>{
+    b.onclick=()=>applyTheme(b.getAttribute('data-theme'));
+  });
+})();
+
+/* ========== CHAT ========== */
+let chatOpen=false, chatUnread=0;
+function showChatBtn(on){
+  const b=$('#chatBtn');
+  if(!b)return;
+  b.classList.toggle('hide', !on);
+  if(!on){chatOpen=false;$('#chatPanel').classList.remove('open');chatUnread=0;updChatBadge()}
+}
+function updChatBadge(){
+  const el=$('#chatBadge');
+  if(!el)return;
+  if(chatUnread>0 && !chatOpen){el.style.display='flex';el.textContent=chatUnread>9?'9+':chatUnread}
+  else el.style.display='none';
+}
+function addChatMsg(name, text, color){
+  const log=$('#chatLog'); if(!log)return;
+  const d=document.createElement('div');
+  d.className='msg';
+  const b=document.createElement('b');
+  b.textContent=(name||'?')+':';
+  if(color && HEX[color]) b.style.color=HEX[color];
+  d.appendChild(b);
+  d.appendChild(document.createTextNode(' '+text));
+  log.appendChild(d);
+  log.scrollTop=log.scrollHeight;
+  if(!chatOpen){chatUnread++;updChatBadge()}
+}
+$('#chatBtn').onclick=()=>{
+  chatOpen=!chatOpen;
+  $('#chatPanel').classList.toggle('open', chatOpen);
+  if(chatOpen){chatUnread=0;updChatBadge();$('#chatIn').focus()}
+};
+$('#chatForm').onsubmit=e=>{
+  e.preventDefault();
+  const inp=$('#chatIn');
+  const text=(inp.value||'').trim();
+  if(!text || !ONLINE || !me)return;
+  inp.value='';
+  post({t:'chat', text:text});
+};
 /* Startup: prefer Resume whenever a session exists. Invite links also try to resume first. */
 (function(){
   const q=(new URLSearchParams(location.search).get('room')||'').toUpperCase();
@@ -1515,6 +1633,11 @@ def api_send(d):
                     r.request_resync("?")
         elif t in ("skip", "finish") and cid == r.host:
             r.append({"t": t})
+        elif t == "chat":
+            text = str(msg.get("text") or "").strip()[:120]
+            if text:
+                # transient so reconnecting players are not flooded with old chat
+                r.transient({"t": "chat", "c": color, "name": r.names.get(cid, "Player"), "text": text})
     return {"ok": True}
 
 
