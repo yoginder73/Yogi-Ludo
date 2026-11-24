@@ -1,0 +1,38 @@
+# Two services from one repo:
+#   1) glass-ludo-api   = WEB SERVICE  (rooms, dice, WebSocket)      -> python ludo.py in API_ONLY mode
+#   2) glass-ludo-site  = STATIC SITE  (graphics + game logic + sounds) -> the ./static-site folder
+services:
+  - type: web
+    name: glass-ludo-api
+    runtime: python
+    plan: free
+    region: singapore          # closest to India; change if your players are elsewhere (cannot be changed later)
+    buildCommand: "echo no build needed"
+    startCommand: "python ludo.py"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: API_ONLY
+        value: "1"
+      - key: ALLOWED_ORIGINS
+        value: "*"             # after the site is live, change to its address, e.g. https://glass-ludo-site.onrender.com
+
+  - type: web
+    name: glass-ludo-site
+    runtime: static
+    staticPublishPath: ./static-site
+    buildCommand: "echo no build needed"
+    autoDeploy: true
+    headers:
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+      - path: /config.js
+        name: Cache-Control
+        value: no-cache
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache
+      - path: /a/*
+        name: Cache-Control
+        value: public, max-age=604800
