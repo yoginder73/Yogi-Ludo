@@ -965,7 +965,7 @@ function refreshResume(){const s=store(),g=loadLocal();$('#rsOn').classList.togg
 function showResume(){if(!store()&&!loadLocal())return false;$('#setup').classList.add('hide');$('#resume').classList.remove('hide');refreshResume();return true}
 async function resumeOnline(){const s=store();if(!s)return;$('#rsErr').textContent='Connecting…';
   const res=await api('/api/join',{name:s.name||'Player',room:s.room,id:s.id});
-  if(res.error){$('#rsErr').textContent='That online game is no longer available.';try{localStorage.removeItem('ludoSess')}catch(e){}refreshResume();return}
+  if(res.error){$('#rsErr').textContent=res.error||'That online game is no longer available.';try{localStorage.removeItem('ludoSess')}catch(e){}refreshResume();return}
   $('#rsErr').textContent='';$('#resume').classList.add('hide');$('#online').classList.remove('hide');$('#pname').value=s.name||getProfile();enter(res)}
 function resumeOffline(){const g=loadLocal();if(!g)return;players=g.players;mode=g.mode;names=g.names||{};WINN=g.WINN||4;$('#resume').classList.add('hide');$('#setup').classList.add('hide');A();newGame(g)}
 $('#rsOnGo').onclick=resumeOnline;
@@ -973,11 +973,38 @@ $('#rsOnX').onclick=async()=>{const s=store();if(s)await api('/api/leave',{room:
 $('#rsOffGo').onclick=resumeOffline;
 $('#rsOffX').onclick=()=>{clearLocal();refreshResume()};
 $('#rsNew').onclick=()=>{$('#resume').classList.add('hide');$('#setup').classList.remove('hide')};
-(function(){const q=(new URLSearchParams(location.search).get('room')||'').toUpperCase();
-  if(!q){if(sessionStorage.getItem('autoResume')==='1'){sessionStorage.removeItem('autoResume');if(store()){showResume();resumeOnline();return}}showResume();return}
+/* Startup: prefer Resume whenever a session exists. Invite links also try to resume first. */
+(function(){
+  const q=(new URLSearchParams(location.search).get('room')||'').toUpperCase();
   const s=store();
-  $('#setup').classList.add('hide');$('#online').classList.remove('hide');$('#rcode').value=q;$('#pname').value=(s&&s.name)||getProfile();
-  if(s&&s.room===q&&s.id&&s.name)api('/api/join',{name:s.name,room:q,id:s.id}).then(enter)})();
+  // Auto-resume after a hard reload
+  if(sessionStorage.getItem('autoResume')==='1'){
+    sessionStorage.removeItem('autoResume');
+    if(s){showResume();resumeOnline();return}
+  }
+  // No room code in URL → show Resume screen if we have a session
+  if(!q){showResume();return}
+  // Invite link present
+  $('#setup').classList.add('hide');
+  $('#online').classList.remove('hide');
+  $('#rcode').value=q;
+  $('#pname').value=(s&&s.name)||getProfile();
+  // Same room + we still have a session → silently resume
+  if(s && s.room===q && s.id){
+    api('/api/join',{name:s.name||'Player',room:q,id:s.id}).then(res=>{
+      if(res.error){
+        // Session invalid – fall back to normal join UI so user can try again with name
+        onErr(res.error);
+        try{localStorage.removeItem('ludoSess')}catch(e){}
+      }else{
+        enter(res);
+      }
+    });
+    return;
+  }
+  // Different session or no session – still show Resume if any old online game exists
+  if(s){showResume();return}
+})();
 
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
@@ -1370,20 +1397,36 @@ def api_join(d):
     if not r:
         return {"error": "Room not found - check the code"}
     cid = str(d.get("id") or "")
+    name = clean_name(d.get("name"))
     with r.lock:
-        if cid and cid in r.names:                        # re-join after refresh / reconnect
+        # 1. Exact ID rejoin (Resume / refresh) – preferred path
+        if cid and cid in r.names:
             col = r.color_of(cid)
             if col in r.left:
-                return {"error": "You left this game"}
+                r.left.discard(col)          # soft reclaim after accidental leave
+                r.presence()
             return {"id": cid, "color": col, "room": r.code}
+
+        # 2. Name-based rejoin (lost session but same name)
+        for c, existing_id in list(r.seats.items()):
+            if r.names.get(existing_id) == name:
+                if c in r.left:
+                    r.left.discard(c)        # soft reclaim
+                    r.presence()
+                return {"id": existing_id, "color": c, "room": r.code}
+
+        # 3. New player – only allowed before the game starts
         if r.started:
-            return {"error": "That game has already started"}
+            return {"error": "That game has already started. Use Resume if you were already in this room."}
         col = r.free_corner()
         if col is None:
             return {"error": "Room is full (4 players)"}
+        # Prevent the same name taking two seats
+        if any(r.names.get(i) == name for i in r.seats.values()):
+            return {"error": "That name is already in this room"}
         cid = new_id()
         r.seats[col] = cid
-        r.names[cid] = clean_name(d.get("name"))
+        r.names[cid] = name
         r.append(r.lobby())
     return {"id": cid, "color": col, "room": r.code}
 
