@@ -150,6 +150,30 @@ body.theme-arena .f span{background:#fff!important;box-shadow:0 0 6px #fff8!impo
  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
 .yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
 .yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
+/* board.py-inspired yard design: bevel, petal ring, center disc, 4 token pits */
+.yard{position:relative;overflow:hidden}
+.yard-bevel{position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.28) 0%,transparent 42%),
+    linear-gradient(315deg,rgba(0,0,0,.22) 0%,transparent 42%),
+    linear-gradient(45deg,rgba(255,255,255,.12) 0%,transparent 40%),
+    linear-gradient(225deg,rgba(0,0,0,.12) 0%,transparent 40%);
+  border-radius:inherit}
+.yard-petal{position:absolute;left:50%;top:50%;width:72%;height:72%;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:1;opacity:.85}
+.yard-petal svg{width:100%;height:100%;display:block}
+.yard-disc{position:absolute;left:50%;top:50%;width:42%;height:42%;transform:translate(-50%,-50%);
+  border-radius:50%;background:rgba(255,255,255,.22);box-shadow:inset 0 0 12px rgba(255,255,255,.45),0 0 0 2px rgba(255,255,255,.25);
+  pointer-events:none;z-index:2}
+.yard-pits{position:absolute;inset:0;pointer-events:none;z-index:3}
+.yard-pit{position:absolute;width:18%;height:18%;border-radius:50%;
+  background:rgba(0,0,0,.18);box-shadow:inset 0 2px 6px rgba(0,0,0,.35),0 0 0 2px rgba(255,255,255,.35);
+  transform:translate(-50%,-50%)}
+.yard-pit:nth-child(1){left:32%;top:32%}
+.yard-pit:nth-child(2){left:68%;top:32%}
+.yard-pit:nth-child(3){left:32%;top:68%}
+.yard-pit:nth-child(4){left:68%;top:68%}
+.yi{z-index:4}
 #ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#43a047 0 90deg,#fdd835 90deg 180deg,#1e88e5 180deg 270deg,#e53935 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:2px solid #fff}
 .tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
 .tk::after{content:"";position:absolute;left:22%;top:14%;width:32%;height:22%;border-radius:50%;background:#fffc;filter:blur(1px)}
@@ -673,6 +697,15 @@ function cell(x,y,cls,col,txt){const d=document.createElement('div');d.className
   if(txt)d.textContent=txt;grid.appendChild(d);return d}
 COLORS.forEach(c=>{const [ox,oy]=YOFF[c];
   const y=cell(0,0,'yard',HEX[c]);y.style.gridArea=`${oy+1}/${ox+1}/${oy+1+L}/${ox+1+L}`;y.style.margin=`calc(var(--bs)/${N}*.75)`;
+  // board.py-style yard anatomy (design only — colours stay theme/HEX)
+  const bevel=document.createElement('div');bevel.className='yard-bevel';y.appendChild(bevel);
+  const petal=document.createElement('div');petal.className='yard-petal';
+  petal.innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 C58 28 72 42 92 50 C72 58 58 72 50 92 C42 72 28 58 8 50 C28 42 42 28 50 8Z" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="3.2"/><circle cx="50" cy="50" r="14" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/></svg>';
+  y.appendChild(petal);
+  const disc=document.createElement('div');disc.className='yard-disc';y.appendChild(disc);
+  const pits=document.createElement('div');pits.className='yard-pits';
+  for(let i=0;i<4;i++){const p=document.createElement('div');p.className='yard-pit';pits.appendChild(p)}
+  y.appendChild(pits);
   const yi=document.createElement('div');yi.className='yi';yi.style.gridArea=`${oy+2}/${ox+2}/${oy+L}/${ox+L}`;yi.style.margin=`calc(var(--bs)/${N}*.2)`;{const yn=document.createElement('div'),a=document.createElement('span'),b=document.createElement('span');yn.className='yn';a.className='a';b.className='b';yn.append(a,b);yi.appendChild(yn);yardNm[c]={box:yn,a,b}}grid.appendChild(yi)});
 PATH.forEach(([x,y],i)=>{const hc=COLORS.find(c=>START[c]===i);
   cell(x,y,'c'+(hc?' col':''),hc?HEX[hc]:null,hc?'➤':(SAFE.has(i)?'★':''))});
