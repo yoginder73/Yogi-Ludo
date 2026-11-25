@@ -40,8 +40,8 @@ body.theme-classic .glass{background:rgba(255,248,230,.14);backdrop-filter:blur(
 body.theme-classic h1{background:linear-gradient(90deg,#ff6b4d,#ffd23f,#ff9f43,#e85d75);-webkit-background-clip:text;background-clip:text}
 body.theme-classic .c{background:linear-gradient(145deg,#fff8f0,#ffe8d0);border:1px solid rgba(255,200,120,.65);border-radius:10%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#c47800}
 body.theme-classic .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(255,220,160,.5)}
-body.theme-classic .yard{border-radius:14px;border:2px solid rgba(255,200,100,.7);box-shadow:inset 0 0 22px rgba(255,230,180,.3),0 0 12px rgba(255,180,60,.2)}
-body.theme-classic .yi{background:rgba(255,248,230,.28);box-shadow:inset 0 0 20px #fff9,inset 0 2px 8px rgba(255,200,100,.25);border-radius:12px;border:1px solid rgba(255,220,150,.35)}
+body.theme-classic .yard{border-radius:22%;border:2px solid rgba(255,200,100,.75);box-shadow:inset 0 0 24px rgba(255,230,180,.35),0 0 14px rgba(255,180,60,.22)}
+body.theme-classic .yi{background:transparent;box-shadow:none;border:none;border-radius:50%}
 body.theme-classic #board{border:1px solid rgba(255,220,160,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
   background:rgba(255,248,230,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 body.theme-classic #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
@@ -62,8 +62,8 @@ body.theme-arena .b3{background:radial-gradient(circle,#18ffff 0,#18ffff00 70%)}
 body.theme-arena .b4{background:radial-gradient(circle,#536dfe 0,#536dfe00 70%)}
 body.theme-arena .glass{background:rgba(180,220,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(120,200,255,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
 body.theme-arena h1{background:linear-gradient(90deg,#00e5ff,#7c4dff,#18ffff,#536dfe);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(120,200,255,.6);border-radius:40%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#1565c0}
-body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(100,220,255,.55);box-shadow:0 0 8px rgba(80,200,255,.25),inset 0 -2px 4px #0000001a}
+body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(120,200,255,.55);border-radius:50%;margin:0;box-shadow:0 1px 4px #0003,inset 0 -2px 4px #00000012;color:#1565c0}
+body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(100,220,255,.5);box-shadow:0 0 10px rgba(80,200,255,.28),inset 0 -2px 4px #0000001a}
 body.theme-arena .yard{border-radius:22px;border:2px solid rgba(100,220,255,.65);box-shadow:inset 0 0 22px rgba(180,230,255,.28),0 0 16px rgba(80,200,255,.3)}
 body.theme-arena .yi{background:rgba(200,230,255,.26);box-shadow:inset 0 0 20px #fff8,0 0 10px rgba(100,220,255,.2);border-radius:50%;border:1px solid rgba(150,220,255,.4)}
 body.theme-arena #board{border:1px solid rgba(120,200,255,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
@@ -74,9 +74,20 @@ body.theme-arena select,body.theme-arena input{background:rgba(0,0,0,.2);color:#
 body.theme-arena .ov{background:rgba(5,15,40,.5);backdrop-filter:blur(6px)}
 body.theme-arena .by,body.theme-arena .row span{color:rgba(255,255,255,.9)}
 body.theme-arena #scene{filter:drop-shadow(0 12px 10px #0009)}
-/* Arena dice: same glass face as Glass theme (player-coloured) */
-body.theme-arena .f{background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);border:2px solid #ffffffcc;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc)}
-body.theme-arena .f span{background:#fff!important;box-shadow:0 0 6px #fff8!important}
+/* Arena dice: cream die + multi-colour pips (like reference) */
+body.theme-arena .f{background:radial-gradient(circle at 28% 22%,#fffef8 0%,#f5f0e6 45%,#e8e0d4 100%);border:2px solid #d4cfc4;border-radius:18px;box-shadow:inset 0 0 14px #fff,0 8px 18px #0006}
+body.theme-arena .f span{background:transparent!important;box-shadow:none!important}
+body.theme-arena .f i{background:radial-gradient(circle at 35% 30%,#fff 0%,#ccc 100%)!important;box-shadow:inset 0 1px 2px #0005,0 1px 2px #0003!important}
+/* colour the pips: yellow, blue, red, green cycle */
+body.theme-arena .f span:nth-child(1) i{background:radial-gradient(circle at 35% 30%,#ffe566,#f6c000 55%,#c49200)!important}
+body.theme-arena .f span:nth-child(2) i{background:radial-gradient(circle at 35% 30%,#7eb6ff,#1e88e5 55%,#0d47a1)!important}
+body.theme-arena .f span:nth-child(3) i{background:radial-gradient(circle at 35% 30%,#ff8a80,#e53935 55%,#b71c1c)!important}
+body.theme-arena .f span:nth-child(4) i{background:radial-gradient(circle at 35% 30%,#69f0ae,#43a047 55%,#1b5e20)!important}
+body.theme-arena .f span:nth-child(5) i{background:radial-gradient(circle at 35% 30%,#ffe566,#f6c000 55%,#c49200)!important}
+body.theme-arena .f span:nth-child(6) i{background:radial-gradient(circle at 35% 30%,#7eb6ff,#1e88e5 55%,#0d47a1)!important}
+body.theme-arena .f span:nth-child(7) i{background:radial-gradient(circle at 35% 30%,#ff8a80,#e53935 55%,#b71c1c)!important}
+body.theme-arena .f span:nth-child(8) i{background:radial-gradient(circle at 35% 30%,#69f0ae,#43a047 55%,#1b5e20)!important}
+body.theme-arena .f span:nth-child(9) i{background:radial-gradient(circle at 35% 30%,#ffe566,#f6c000 55%,#c49200)!important}
 
 
 
@@ -103,29 +114,31 @@ body.theme-arena .f span{background:#fff!important;box-shadow:0 0 6px #fff8!impo
  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
 .yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
 .yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
-/* board.py-inspired yard design: bevel, petal ring, center disc, 4 token pits */
+/* board.py yard anatomy — only visible on Classic */
 .yard{position:relative;overflow:hidden}
-.yard-bevel{position:absolute;inset:0;pointer-events:none;z-index:0;
+.yard-bevel,.yard-petal,.yard-disc,.yard-pits{display:none;pointer-events:none}
+body.theme-classic .yard-bevel,body.theme-classic .yard-petal,body.theme-classic .yard-disc,body.theme-classic .yard-pits{display:block}
+body.theme-classic .yard-bevel{position:absolute;inset:0;z-index:0;border-radius:inherit;
   background:
-    linear-gradient(135deg,rgba(255,255,255,.28) 0%,transparent 42%),
-    linear-gradient(315deg,rgba(0,0,0,.22) 0%,transparent 42%),
-    linear-gradient(45deg,rgba(255,255,255,.12) 0%,transparent 40%),
-    linear-gradient(225deg,rgba(0,0,0,.12) 0%,transparent 40%);
-  border-radius:inherit}
-.yard-petal{position:absolute;left:50%;top:50%;width:72%;height:72%;transform:translate(-50%,-50%);
-  pointer-events:none;z-index:1;opacity:.85}
-.yard-petal svg{width:100%;height:100%;display:block}
-.yard-disc{position:absolute;left:50%;top:50%;width:42%;height:42%;transform:translate(-50%,-50%);
-  border-radius:50%;background:rgba(255,255,255,.22);box-shadow:inset 0 0 12px rgba(255,255,255,.45),0 0 0 2px rgba(255,255,255,.25);
-  pointer-events:none;z-index:2}
-.yard-pits{position:absolute;inset:0;pointer-events:none;z-index:3}
-.yard-pit{position:absolute;width:18%;height:18%;border-radius:50%;
-  background:rgba(0,0,0,.18);box-shadow:inset 0 2px 6px rgba(0,0,0,.35),0 0 0 2px rgba(255,255,255,.35);
+    linear-gradient(135deg,rgba(255,255,255,.38) 0%,transparent 45%),
+    linear-gradient(315deg,rgba(0,0,0,.28) 0%,transparent 45%),
+    linear-gradient(45deg,rgba(255,255,255,.14) 0%,transparent 42%),
+    linear-gradient(225deg,rgba(0,0,0,.16) 0%,transparent 42%)}
+body.theme-classic .yard-petal{position:absolute;left:50%;top:50%;width:78%;height:78%;transform:translate(-50%,-50%);z-index:1;opacity:.95}
+body.theme-classic .yard-petal svg{width:100%;height:100%;display:block}
+body.theme-classic .yard-disc{position:absolute;left:50%;top:50%;width:38%;height:38%;transform:translate(-50%,-50%);
+  border-radius:50%;z-index:2;background:rgba(255,255,255,.28);box-shadow:inset 0 0 14px rgba(255,255,255,.5),0 0 0 2px rgba(255,255,255,.3)}
+body.theme-classic .yard-pits{position:absolute;inset:0;z-index:3}
+body.theme-classic .yard-pit{position:absolute;width:20%;height:20%;border-radius:50%;
+  background:rgba(0,0,0,.22);box-shadow:inset 0 2px 6px rgba(0,0,0,.4),0 0 0 2px rgba(255,255,255,.4);
   transform:translate(-50%,-50%)}
-.yard-pit:nth-child(1){left:32%;top:32%}
-.yard-pit:nth-child(2){left:68%;top:32%}
-.yard-pit:nth-child(3){left:32%;top:68%}
-.yard-pit:nth-child(4){left:68%;top:68%}
+body.theme-classic .yard-pit:nth-child(1){left:30%;top:30%}
+body.theme-classic .yard-pit:nth-child(2){left:70%;top:30%}
+body.theme-classic .yard-pit:nth-child(3){left:30%;top:70%}
+body.theme-classic .yard-pit:nth-child(4){left:70%;top:70%}
+/* Classic yard: soft rounded base (not plain square panel) */
+body.theme-classic .yard{border-radius:22% !important}
+body.theme-classic .yi{z-index:4;background:transparent!important;box-shadow:none!important;border:none!important}
 .yi{z-index:4}
 #ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#43a047 0 90deg,#fdd835 90deg 180deg,#1e88e5 180deg 270deg,#e53935 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:2px solid #fff}
 .tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
