@@ -85,10 +85,10 @@ body.theme-classic .b3{background:radial-gradient(circle,#ff9f43 0,#ff9f4300 70%
 body.theme-classic .b4{background:radial-gradient(circle,#e85d75 0,#e85d7500 70%)}
 body.theme-classic .glass{background:rgba(255,248,230,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,220,160,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
 body.theme-classic h1{background:linear-gradient(90deg,#ff6b4d,#ffd23f,#ff9f43,#e85d75);-webkit-background-clip:text;background-clip:text}
-body.theme-classic .c{background:linear-gradient(145deg,#fff8f0,#ffe8d0);border:1px solid rgba(255,255,255,.7);border-radius:24%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#c47800}
-body.theme-classic .c.col{color:#fff;text-shadow:0 1px 3px #0006}
-body.theme-classic .yard{border-radius:16px;border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 0 20px rgba(255,255,255,.25)}
-body.theme-classic .yi{background:rgba(255,255,255,.32);box-shadow:inset 0 0 18px #fff8;border-radius:16px}
+body.theme-classic .c{background:linear-gradient(145deg,#fff8f0,#ffe8d0);border:1px solid rgba(255,200,120,.65);border-radius:10%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#c47800}
+body.theme-classic .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(255,220,160,.5)}
+body.theme-classic .yard{border-radius:14px;border:2px solid rgba(255,200,100,.7);box-shadow:inset 0 0 22px rgba(255,230,180,.3),0 0 12px rgba(255,180,60,.2)}
+body.theme-classic .yi{background:rgba(255,248,230,.28);box-shadow:inset 0 0 20px #fff9,inset 0 2px 8px rgba(255,200,100,.25);border-radius:12px;border:1px solid rgba(255,220,150,.35)}
 body.theme-classic #board{border:1px solid rgba(255,220,160,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
   background:rgba(255,248,230,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 body.theme-classic #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
@@ -109,10 +109,10 @@ body.theme-arena .b3{background:radial-gradient(circle,#18ffff 0,#18ffff00 70%)}
 body.theme-arena .b4{background:radial-gradient(circle,#536dfe 0,#536dfe00 70%)}
 body.theme-arena .glass{background:rgba(180,220,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(120,200,255,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
 body.theme-arena h1{background:linear-gradient(90deg,#00e5ff,#7c4dff,#18ffff,#536dfe);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(255,255,255,.7);border-radius:24%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#1565c0}
-body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006}
-body.theme-arena .yard{border-radius:16px;border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 0 20px rgba(255,255,255,.25)}
-body.theme-arena .yi{background:rgba(255,255,255,.32);box-shadow:inset 0 0 18px #fff8;border-radius:16px}
+body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(120,200,255,.6);border-radius:40%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#1565c0}
+body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(100,220,255,.55);box-shadow:0 0 8px rgba(80,200,255,.25),inset 0 -2px 4px #0000001a}
+body.theme-arena .yard{border-radius:22px;border:2px solid rgba(100,220,255,.65);box-shadow:inset 0 0 22px rgba(180,230,255,.28),0 0 16px rgba(80,200,255,.3)}
+body.theme-arena .yi{background:rgba(200,230,255,.26);box-shadow:inset 0 0 20px #fff8,0 0 10px rgba(100,220,255,.2);border-radius:50%;border:1px solid rgba(150,220,255,.4)}
 body.theme-arena #board{border:1px solid rgba(120,200,255,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
   background:rgba(180,220,255,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 body.theme-arena #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
