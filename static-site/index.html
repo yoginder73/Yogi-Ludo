@@ -19,7 +19,7 @@ body:not(:has(#setup:not(.hide))){animation:none}
 .b3{width:260px;height:260px;background:radial-gradient(circle,#ffd23f 0,#ffd23f00 70%);top:40%;right:-100px;animation-delay:-7s}
 .b4{width:280px;height:280px;background:radial-gradient(circle,#4dabff 0,#4dabff00 70%);bottom:10%;left:-100px;animation-delay:-2s}
 @keyframes fl{to{transform:translate(60px,-50px) scale(1.2)}}
-h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;background:linear-gradient(90deg,#ff4d6d,#ffd23f,#2de08a,#4dabff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1{margin:0;z-index:1;font-size:clamp(16px,3.2vw,26px);letter-spacing:3px;background:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text;color:transparent}
 .glass{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.35);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.5)}
 #board{--bs:min(98vw,calc(100vh - 212px),760px);--bs:min(98vw,calc(100dvh - 212px),760px);position:relative;width:var(--bs);height:var(--bs);border-radius:20px;z-index:1;overflow:hidden;touch-action:manipulation;backdrop-filter:none;-webkit-backdrop-filter:none}
 #grid{position:absolute;inset:0;display:grid}
@@ -30,35 +30,43 @@ body.ios .glass,body.ios .ov{backdrop-filter:none;-webkit-backdrop-filter:none} 
 body.ios .glass{background:rgba(50,30,110,.55)}
 
 /* ========== THEMES (Glass = default) ========== */
-/* Classic: traditional flat Ludo board (green/red/yellow/blue) */
-body.theme-classic{background:#1a4a2e;background-size:100% 100%;animation:none}
+/* Classic: board.py rendered board image + matching palette */
+body.theme-classic{background:#ECECEC;background-size:100% 100%;animation:none}
 body.theme-classic .b1,body.theme-classic .b2,body.theme-classic .b3,body.theme-classic .b4{display:none}
-body.theme-classic .glass{background:#f7f7f7;border:2px solid #333;color:#222;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 8px 24px #0005}
-body.theme-classic h1{background:linear-gradient(90deg,#e53935,#43a047,#fdd835,#1e88e5);-webkit-background-clip:text;background-clip:text}
-body.theme-classic .c{background:#fff;border:1px solid #bbb;border-radius:4px;box-shadow:none;color:#333}
-body.theme-classic .c.col{color:#fff;text-shadow:none}
-body.theme-classic .yard{border-radius:8px;border:3px solid #fff;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12)}
-body.theme-classic #board{border:5px solid #222;border-radius:8px;box-shadow:0 8px 28px #0006;background:#eee}
-body.theme-classic button{background:#fff;color:#222;border:2px solid #333}
-body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:1px solid #333}
-body.theme-classic .ov{background:rgba(0,0,0,.45)}
-body.theme-classic #ctr{border-radius:4px}
+body.theme-classic .glass{background:#ffffff;border:3px solid #4A4A4A;color:#222;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 28px #0004}
+body.theme-classic h1{background:linear-gradient(90deg,#DF1B22,#0B8E36,#F6EB14,#243C8E);-webkit-background-clip:text;background-clip:text}
+body.theme-classic .c{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0;color:transparent}
+body.theme-classic .c.col{background:transparent!important;box-shadow:none!important;color:transparent}
+body.theme-classic .yard{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0}
+body.theme-classic .yi{background:transparent!important;box-shadow:none!important}
+body.theme-classic #board{border:3px solid #333;border-radius:8px;box-shadow:0 10px 30px #0005;
+  background:#ECECEC url(board-classic.png) center center / 100% 100% no-repeat}
+body.theme-classic #ctr{background:transparent!important;border:none!important;box-shadow:none!important}
+body.theme-classic button{background:#fff;color:#222;border:2px solid #4A4A4A;font-weight:700}
+body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:2px solid #4A4A4A}
+body.theme-classic .ov{background:rgba(0,0,0,.4)}
 body.theme-classic .by,body.theme-classic .row span{color:#333}
+body.theme-classic #scene{filter:drop-shadow(0 8px 12px #0007)}
+body.theme-classic .yn .a::before{color:#333;-webkit-text-stroke:.13em #333}
+body.theme-classic .yn .b{color:#222;text-shadow:none}
 
-/* Arena: bold modern board like popular Ludo apps */
-body.theme-arena{background:linear-gradient(160deg,#0d1b4a,#1a237e 50%,#0d47a1);background-size:100% 100%;animation:none}
-body.theme-arena .b1{background:radial-gradient(circle,#e53935 0,#e5393500 70%)}
-body.theme-arena .b2{background:radial-gradient(circle,#43a047 0,#43a04700 70%)}
-body.theme-arena .b3{background:radial-gradient(circle,#fdd835 0,#fdd83500 70%)}
-body.theme-arena .b4{background:radial-gradient(circle,#1e88e5 0,#1e88e500 70%)}
-body.theme-arena .glass{background:rgba(255,255,255,.95);border:2px solid #1565c0;color:#0d1b4a;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 30px #0006}
-body.theme-arena h1{background:linear-gradient(90deg,#e53935,#fdd835,#43a047,#1e88e5);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:#fff;border:1px solid #90caf9;border-radius:6px;box-shadow:0 1px 3px #0002;color:#1565c0}
-body.theme-arena .c.col{color:#fff}
-body.theme-arena .yard{border-radius:12px;border:3px solid #fff;box-shadow:0 4px 12px #0004}
-body.theme-arena #board{border:4px solid #0d47a1;border-radius:16px;box-shadow:0 12px 32px #0007}
-body.theme-arena button{background:linear-gradient(180deg,#42a5f5,#1565c0);color:#fff;border:none}
+/* Arena: pin-token app board (solid vivid yards, clean grid) */
+body.theme-arena{background:linear-gradient(160deg,#1a237e,#0d47a1);background-size:100% 100%;animation:none}
+body.theme-arena .b1{background:radial-gradient(circle,#DF1B22 0,#DF1B2200 70%)}
+body.theme-arena .b2{background:radial-gradient(circle,#0B8E36 0,#0B8E3600 70%)}
+body.theme-arena .b3{background:radial-gradient(circle,#F6EB14 0,#F6EB1400 70%)}
+body.theme-arena .b4{background:radial-gradient(circle,#243C8E 0,#243C8E00 70%)}
+body.theme-arena .glass{background:#ffffff;border:3px solid #243C8E;color:#1a237e;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 12px 32px #0006}
+body.theme-arena h1{background:linear-gradient(90deg,#DF1B22,#F6EB14,#0B8E36,#243C8E);-webkit-background-clip:text;background-clip:text}
+body.theme-arena .c{background:#F4F4F4;border:1px solid #4A4A4A;border-radius:2px;box-shadow:none;color:#333;font-weight:800}
+body.theme-arena .c.col{color:#fff;text-shadow:0 1px 2px #0005}
+body.theme-arena .yard{border-radius:4px;border:3px solid #fff;box-shadow:0 3px 10px #0004}
+body.theme-arena #board{border:4px solid #1a237e;border-radius:6px;box-shadow:0 14px 36px #0007;background:#ECECEC}
+body.theme-arena button{background:linear-gradient(180deg,#3855B5,#243C8E);color:#fff;border:none;font-weight:700}
+body.theme-arena select,body.theme-arena input{background:#fff;color:#1a237e;border:2px solid #243C8E}
 body.theme-arena .ov{background:rgba(13,27,74,.55)}
+body.theme-arena #ctr{border:2px solid #fff;border-radius:4px}
+body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0008)}
 
 
 
@@ -85,7 +93,7 @@ body.theme-arena .ov{background:rgba(13,27,74,.55)}
  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;-webkit-text-stroke:.012em #fff3b0}
 .yn .b{margin-top:.34em;font-size:.5em;font-style:normal;letter-spacing:.22em;color:#fff3c4;text-shadow:0 1px 1px #5a3000,0 0 4px #5a3000}
 .yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
-#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#2de08a 0 90deg,#ffd23f 90deg 180deg,#4dabff 180deg 270deg,#ff4d6d 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:1px solid #fff9}
+#ctr{margin:0;border-radius:8px;background:conic-gradient(from -45deg,#43a047 0 90deg,#fdd835 90deg 180deg,#1e88e5 180deg 270deg,#e53935 270deg 360deg);box-shadow:inset 0 0 25px #fff8;border:2px solid #fff}
 .tk{position:absolute;border-radius:50%;pointer-events:none;transform:translate(calc(-50% + var(--ox,0%)),calc(-50% + var(--oy,0%)));transition:left var(--tt,.07s) linear,top var(--tt,.07s) linear;z-index:5;border:2px solid #fff;box-shadow:0 4px 8px #0007,inset -3px -4px 8px #0006,inset 3px 3px 6px #fffa}
 .tk::after{content:"";position:absolute;left:22%;top:14%;width:32%;height:22%;border-radius:50%;background:#fffc;filter:blur(1px)}
 .tk.can{z-index:9;animation:hop .5s ease-in-out infinite;box-shadow:0 0 0 3px #fff,0 0 18px 7px currentColor}
@@ -96,6 +104,13 @@ body.theme-arena .ov{background:rgba(13,27,74,.55)}
 #scene{--pc:#ff7ae0;--pd:#7a2cff;transition:--pc .22s,--pd .22s;width:88px;height:88px;perspective:520px;cursor:pointer;touch-action:manipulation;padding:0;filter:drop-shadow(0 12px 10px #0009)}
 #cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
 .f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
+/* Classic theme: soft frosted glass dice */
+/* Classic: white die, pips take player colour via --pc */
+body.theme-classic .f{background:radial-gradient(circle at 28% 22%,#ffffff 0%,#f5f5f5 55%,#e0e0e0 100%);border:2px solid #9e9e9e;box-shadow:inset 0 0 12px #fff,0 6px 14px #0005}
+body.theme-classic .f span{background:var(--pc)!important;box-shadow:inset 0 1px 2px #0006,0 0 4px var(--pc)!important}
+/* Arena: clean white die, vivid player-colour pips */
+body.theme-arena .f{background:radial-gradient(circle at 30% 25%,#ffffff 0%,#fafafa 50%,#eeeeee 100%);border:2px solid #bdbdbd;border-radius:16px;box-shadow:inset 0 0 10px #fff,0 8px 16px #0006}
+body.theme-arena .f span{background:var(--pc)!important;box-shadow:0 0 5px var(--pc)!important}
 .f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
 .f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
 #scene.wait{animation:bob 1.1s ease-in-out infinite}
@@ -541,6 +556,8 @@ async function toggleVoice() {
     voiceOn = true; voiceMuted = false;
     setVoiceUI();
     post({t: 'rtc', kind: 'hello'});
+    clearTimeout(window._vHello);
+    window._vHello = setTimeout(function(){ if(voiceOn) post({t:'rtc', kind:'hello'}); }, 1200);
   } catch (err) {
     alert('Allow microphone to use live voice chat');
     hangupVoice();
@@ -578,7 +595,7 @@ function playVoice(){ /* legacy short clips unused in live mode */ }
 /* ---------- geometry (L=6 -> standard 15x15 board, 52-step track) ---------- */
 const L=6,N=2*L+3,M=L+1,Q=2*L+1,R=4*Q,LAST=R-2,HB=1000,FIN_P=HB+L-1;
 const COLORS=['red','green','yellow','blue'];
-const HEX={red:'#ff4d6d',green:'#2de08a',yellow:'#ffd23f',blue:'#4dabff'};
+const HEX={red:'#DF1B22',green:'#0B8E36',yellow:'#F6EB14',blue:'#243C8E'};
 const NAME={red:'Red',green:'Green',yellow:'Yellow',blue:'Blue'};
 const START={red:0,green:Q,yellow:2*Q,blue:3*Q};
 const SAFE=new Set();COLORS.forEach(c=>{SAFE.add(START[c]);SAFE.add(START[c]+Q-5)});
@@ -1023,7 +1040,7 @@ function endGame(w0){phase='over';busy=true;gen++;gameLive=false;clearLocal();tr
   $('#win').classList.remove('hide');for(let k=0;k<5;k++)setTimeout(()=>burst($('#wt'),50),k*300)}
 $('#quit').onclick=()=>{if(!confirm(ONLINE?'Quit this game? You leave your seat and the others carry on.':'Quit this game and go back to the menu?'))return;
   recQuit();
-  if(ONLINE){const x={room:me.room,id:me.id};leaveOnline();api('/api/leave',x)}else clearLocal();
+  if(ONLINE){const x={room:me.room,id:me.id};leaveOnline(true);api('/api/leave',x)}else clearLocal();
   gen++;phase='idle';busy=true;['#fin','#quit','#sync','#skip','#win'].forEach(q=>$(q).classList.add('hide'));
   Object.values(tokEl).flat().forEach(e=>e.remove());clearDholBoys();$('#st').textContent='';
   $('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide');$('#setup').classList.remove('hide')};
@@ -1092,7 +1109,7 @@ function handle(d){
   if(d.t==='lobby'){names={};Object.entries(d.seats).forEach(([c,n])=>names[c]=n);Object.assign(gameNames,names);me.host=d.host===me.color;lobbySeats=d.seats;lobbyHost=d.host;renderLobby();if(started&&phase!=='over')$('#fin').classList.toggle('hide',!me.host)}
   else if(d.t==='presence'){onlineOn=d.on;renderSeats();updSkip()}
   else if(d.t==='synced'){synced=true;if(!qrun&&!MQ.length)FAST=false}
-  else if(d.t==='closed'){leaveOnline();onErr('The host closed this room.');$('#win').classList.add('hide');$('#online').classList.remove('hide');$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')}
+  else if(d.t==='closed'){leaveOnline(true);onErr('The host closed this room.');$('#win').classList.add('hide');$('#online').classList.remove('hide');$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')}
   else if(d.t==='start'){gameLive=true;appliedN=d.n||0;selfMoves=selfRolls=0;predicted.length=0;outAt=0;WINN=d.win||4;players=d.players;mode={red:'off',green:'off',yellow:'off',blue:'off'};players.forEach(c=>mode[c]='human');started=true;
     MQ.length=0;$('#online').classList.add('hide');$('#setup').classList.add('hide');$('#win').classList.add('hide');newGame()}
   else if(d.t==='resync'){if(!FAST&&synced&&(d.hard||Date.now()-lastResync>8000)){if(d.hard)hardRejoin();else resyncNow('requested by '+pn(d.c))}}   /* someone pressed Sync (ignored while replaying, and by the phone that pressed it) */
@@ -1206,8 +1223,9 @@ if(/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&
 if(LITE==='1')setLite(true);else if(LITE==='0')setLite(false);
 else{setLite((navigator.hardwareConcurrency||8)<=4);   // slow phones: switch effects off automatically
   let fr=0;const t0=performance.now();(function f(){fr++;const dt=performance.now()-t0;if(dt<1500)requestAnimationFrame(f);else if(fr/(dt/1000)<40)setLite(true)})()}
-function leaveOnline(){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};try{localStorage.removeItem('ludoSess')}catch(e){}$('#sync').classList.add('hide');showVoiceBtn(false);hangupVoice();}
-$('#again').addEventListener('click',()=>{leaveOnline();$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')});
+function leaveOnline(clearSess){gameLive=false;pollGen++;if(ws){try{ws.close()}catch(e){}}ws=null;selfMoves=selfRolls=0;outAt=0;ONLINE=false;FAST=false;names={};started=false;onlineOn=[];lobbySeats={};if(clearSess){try{localStorage.removeItem('ludoSess')}catch(e){}}$('#sync').classList.add('hide');showVoiceBtn(false);hangupVoice();}
+function keepSession(){/* session stays in localStorage for Resume */}
+$('#again').addEventListener('click',()=>{leaveOnline(true);$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide')});
 function askServer(){const v=prompt('Enter your game server address, e.g. https://your-name.onrender.com');if(!v)return false;
   const b=normBase(v);if(!b){alert('That address does not look right');return false}BASE=b;try{localStorage.setItem('ludoServer',BASE)}catch(e){}return true}
 function showSrv(){const e=$('#srv');if(location.protocol!=='file:'||!BASE){e.classList.add('hide');return}
@@ -1215,7 +1233,7 @@ function showSrv(){const e=$('#srv');if(location.protocol!=='file:'||!BASE){e.cl
   const b=document.createElement('button');b.textContent='change';b.style.padding='3px 10px';b.onclick=()=>{if(askServer())showSrv()};e.append(t,b)}
 $('#goOnline').onclick=()=>{A();if(location.protocol==='file:'&&!BASE&&!askServer())return;showSrv();
   $('#setup').classList.add('hide');$('#online').classList.remove('hide')};
-$('#onBack').onclick=()=>{leaveOnline();$('#online').classList.add('hide');$('#setup').classList.remove('hide');$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide');onErr('')};
+$('#onBack').onclick=()=>{leaveOnline(!started);$('#online').classList.add('hide');$('#setup').classList.remove('hide');$('#onJoin').classList.remove('hide');$('#onLobby').classList.add('hide');onErr('')};
 async function loadSrvStats(){const el=$('#srvStat');try{const r=await fetch(BASE+'/api/stats',{cache:'no-store'});const d=await r.json();
   el.textContent=`Online now: ${d.online}  ·  Games running: ${d.rooms}/${d.max_rooms}  ·  Total visits: ${Number(d.visits).toLocaleString()}`+(d.full?'  ·  Server full: new rooms paused':'')}catch(e){el.textContent=''}}
 try{if(!sessionStorage.getItem('hit')){sessionStorage.setItem('hit','1');fetch(BASE+'/api/hit',{method:'POST'}).catch(()=>{})}}catch(e){}
@@ -1234,10 +1252,21 @@ function refreshResume(){const s=store(),g=loadLocal();$('#rsOn').classList.togg
   if(s)$('#rsRoom').textContent=s.room;if(g)$('#rsInfo').textContent=g.players.map(c=>NAME[c]).join(', ');
   if(!s&&!g){$('#resume').classList.add('hide');$('#setup').classList.remove('hide')}}
 function showResume(){if(!store()&&!loadLocal())return false;$('#setup').classList.add('hide');$('#resume').classList.remove('hide');refreshResume();return true}
-async function resumeOnline(){const s=store();if(!s)return;$('#rsErr').textContent='Connecting…';
-  const res=await api('/api/join',{name:s.name||'Player',room:s.room,id:s.id});
-  if(res.error){$('#rsErr').textContent=res.error||'That online game is no longer available.';try{localStorage.removeItem('ludoSess')}catch(e){}refreshResume();return}
-  $('#rsErr').textContent='';$('#resume').classList.add('hide');$('#online').classList.remove('hide');$('#pname').value=s.name||getProfile();enter(res)}
+async function resumeOnline(){const s=store();if(!s)return;$('#rsErr').textContent='Rejoining…';
+  let res=await api('/api/join',{name:s.name||'Player',room:s.room,id:s.id});
+  // Retry once without id (name reclaim) if exact id failed but room may still exist
+  if(res.error && s.name){
+    res=await api('/api/join',{name:s.name,room:s.room});
+  }
+  if(res.error){
+    $('#rsErr').textContent=res.error||'Could not rejoin — room may have closed.';
+    // Only drop session if room is gone, not on transient errors
+    if(/not found|closed|no longer/i.test(res.error||'')){try{localStorage.removeItem('ludoSess')}catch(e){}}
+    refreshResume();return;
+  }
+  $('#rsErr').textContent='';$('#resume').classList.add('hide');
+  $('#pname').value=s.name||getProfile();
+  enter(res)}
 function resumeOffline(){const g=loadLocal();if(!g)return;players=g.players;mode=g.mode;names=g.names||{};WINN=g.WINN||4;$('#resume').classList.add('hide');$('#setup').classList.add('hide');A();newGame(g)}
 $('#rsOnGo').onclick=resumeOnline;
 $('#rsOnX').onclick=async()=>{const s=store();if(s)await api('/api/leave',{room:s.room,id:s.id});try{localStorage.removeItem('ludoSess')}catch(e){}$('#rsErr').textContent='';refreshResume()};
@@ -1276,27 +1305,35 @@ let mediaRec=null, recChunks=[], recStream=null, voiceSending=false;
     sessionStorage.removeItem('autoResume');
     if(s){showResume();resumeOnline();return}
   }
-  // No room code in URL → show Resume screen if we have a session
-  if(!q){showResume();return}
+  // No room code in URL → prefer silent auto-resume, else Resume screen
+  if(!q){
+    if(s && s.room && s.id){
+      // Try silent rejoin so player lands back in the game
+      showResume();
+      resumeOnline();
+      return;
+    }
+    showResume();
+    return;
+  }
   // Invite link present
   $('#setup').classList.add('hide');
   $('#online').classList.remove('hide');
   $('#rcode').value=q;
   $('#pname').value=(s&&s.name)||getProfile();
-  // Same room + we still have a session → silently resume
+  // Same room + session → silent resume into that room
   if(s && s.room===q && s.id){
     api('/api/join',{name:s.name||'Player',room:q,id:s.id}).then(res=>{
       if(res.error){
-        // Session invalid – fall back to normal join UI so user can try again with name
-        onErr(res.error);
-        try{localStorage.removeItem('ludoSess')}catch(e){}
-      }else{
-        enter(res);
-      }
+        // Try name-only reclaim
+        return api('/api/join',{name:s.name||'Player',room:q}).then(res2=>{
+          if(res2.error){onErr(res2.error)}
+          else enter(res2);
+        });
+      }else enter(res);
     });
     return;
   }
-  // Different session or no session – still show Resume if any old online game exists
   if(s){showResume();return}
 })();
 
