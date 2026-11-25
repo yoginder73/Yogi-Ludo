@@ -109,10 +109,21 @@ body.theme-arena .b3{background:radial-gradient(circle,#18ffff 0,#18ffff00 70%)}
 body.theme-arena .b4{background:radial-gradient(circle,#536dfe 0,#536dfe00 70%)}
 body.theme-arena .glass{background:rgba(180,220,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(120,200,255,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
 body.theme-arena h1{background:linear-gradient(90deg,#00e5ff,#7c4dff,#18ffff,#536dfe);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(120,200,255,.55);border-radius:50%;margin:0;box-shadow:0 1px 4px #0003,inset 0 -2px 4px #00000012;color:#1565c0}
-body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(100,220,255,.5);box-shadow:0 0 10px rgba(80,200,255,.28),inset 0 -2px 4px #0000001a}
-body.theme-arena .yard{border-radius:22px;border:2px solid rgba(100,220,255,.65);box-shadow:inset 0 0 22px rgba(180,230,255,.28),0 0 16px rgba(80,200,255,.3)}
-body.theme-arena .yi{background:rgba(200,230,255,.26);box-shadow:inset 0 0 20px #fff8,0 0 10px rgba(100,220,255,.2);border-radius:50%;border:1px solid rgba(150,220,255,.4)}
+body.theme-arena .c{background:linear-gradient(145deg,#f7fbff,#e3eefc);border:1px solid rgba(120,180,220,.45);border-radius:6px;margin:.4px;box-shadow:inset 0 -1px 2px #0001;color:#1565c0}
+body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006;border-color:rgba(255,255,255,.35);box-shadow:inset 0 0 10px rgba(255,255,255,.15)}
+/* soft colour overlap on first home-stretch cells (1st & nearby steps) */
+body.theme-arena .c.col.home-entry{position:relative;overflow:visible;z-index:2}
+body.theme-arena .c.col.home-entry::after{content:"";position:absolute;inset:-18% -12%;border-radius:40%;
+  background:inherit;opacity:.55;filter:blur(1px);z-index:-1;pointer-events:none}
+body.theme-arena .yard{border-radius:10px;border:1px solid rgba(255,255,255,.45);box-shadow:inset 0 0 30px rgba(255,255,255,.2),0 0 16px rgba(80,200,255,.25);
+  /* subtle bevel like reference */
+  background-image:
+    linear-gradient(135deg,rgba(255,255,255,.28) 0%,transparent 42%),
+    linear-gradient(315deg,rgba(0,0,0,.2) 0%,transparent 42%)}
+body.theme-arena .yi{background:transparent!important;box-shadow:none!important;border:none!important}
+body.theme-arena .yard-atom{display:block;position:absolute;inset:8%;z-index:2;pointer-events:none;opacity:.95}
+body.theme-arena .yard-atom svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+body.theme-arena .yard-bevel,body.theme-arena .yard-petal,body.theme-arena .yard-disc,body.theme-arena .yard-pits{display:none!important}
 body.theme-arena #board{border:1px solid rgba(120,200,255,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
   background:rgba(180,220,255,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 body.theme-arena #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
@@ -163,7 +174,7 @@ body.theme-arena .f span:nth-child(9) i{background:radial-gradient(circle at 35%
 .yi{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 18px #fff9}
 /* board.py yard anatomy — only visible on Classic */
 .yard{position:relative;overflow:hidden}
-.yard-bevel,.yard-petal,.yard-disc,.yard-pits{display:none;pointer-events:none}
+.yard-bevel,.yard-petal,.yard-disc,.yard-pits,.yard-atom{display:none;pointer-events:none}
 body.theme-classic .yard-bevel,body.theme-classic .yard-petal,body.theme-classic .yard-disc,body.theme-classic .yard-pits{display:block}
 body.theme-classic .yard-bevel{position:absolute;inset:0;z-index:0;border-radius:inherit;
   background:
@@ -719,10 +730,11 @@ COLORS.forEach(c=>{const [ox,oy]=YOFF[c];
   const pits=document.createElement('div');pits.className='yard-pits';
   for(let i=0;i<4;i++){const p=document.createElement('div');p.className='yard-pit';pits.appendChild(p)}
   y.appendChild(pits);
+  const atom=document.createElement('div');atom.className='yard-atom';atom.innerHTML="<svg viewBox='0 0 100 100' aria-hidden='true'><g fill='none' stroke='rgba(255,255,255,.92)' stroke-width='3.2' stroke-linecap='round'><ellipse cx='50' cy='50' rx='38' ry='16' transform='rotate(0 50 50)'/><ellipse cx='50' cy='50' rx='38' ry='16' transform='rotate(60 50 50)'/><ellipse cx='50' cy='50' rx='38' ry='16' transform='rotate(120 50 50)'/></g><circle cx='50' cy='32' r='5.2' fill='rgba(255,255,255,.95)'/><circle cx='50' cy='68' r='5.2' fill='rgba(255,255,255,.95)'/><circle cx='32' cy='50' r='5.2' fill='rgba(255,255,255,.95)'/><circle cx='68' cy='50' r='5.2' fill='rgba(255,255,255,.95)'/><circle cx='50' cy='50' r='7' fill='none' stroke='rgba(255,255,255,.5)' stroke-width='1.5'/></svg>";y.appendChild(atom);
   const yi=document.createElement('div');yi.className='yi';yi.style.gridArea=`${oy+2}/${ox+2}/${oy+L}/${ox+L}`;yi.style.margin=`calc(var(--bs)/${N}*.2)`;{const yn=document.createElement('div'),a=document.createElement('span'),b=document.createElement('span');yn.className='yn';a.className='a';b.className='b';yn.append(a,b);yi.appendChild(yn);yardNm[c]={box:yn,a,b}}grid.appendChild(yi)});
 PATH.forEach(([x,y],i)=>{const hc=COLORS.find(c=>START[c]===i);
   cell(x,y,'c'+(hc?' col':''),hc?HEX[hc]:null,hc?'➤':(SAFE.has(i)?'★':''))});
-COLORS.forEach(c=>HOME[c].forEach(([x,y])=>cell(x,y,'c',HEX[c])));
+COLORS.forEach(c=>HOME[c].forEach(([x,y],i)=>{const d=cell(x,y,'c col',HEX[c]);if(i===0||i===3)d.classList.add('home-entry');}));
 const ct=cell(0,0,'c');ct.id='ctr';ct.style.gridArea=`${L+1}/${L+1}/${L+4}/${L+4}`;
 
 /* ---------- dice ---------- */
