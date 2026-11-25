@@ -77,43 +77,53 @@ body.ios .glass,body.ios .ov{backdrop-filter:none;-webkit-backdrop-filter:none} 
 body.ios .glass{background:rgba(50,30,110,.55)}
 
 /* ========== THEMES (Glass = default) ========== */
-/* Classic: board.py rendered board image + matching palette */
-body.theme-classic{background:#ECECEC;background-size:100% 100%;animation:none}
-body.theme-classic .b1,body.theme-classic .b2,body.theme-classic .b3,body.theme-classic .b4{display:none}
-body.theme-classic .glass{background:#ffffff;border:3px solid #4A4A4A;color:#222;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 10px 28px #0004}
-body.theme-classic h1{background:linear-gradient(90deg,#DF1B22,#0B8E36,#F6EB14,#243C8E);-webkit-background-clip:text;background-clip:text}
-body.theme-classic .c{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0;color:transparent}
-body.theme-classic .c.col{background:transparent!important;box-shadow:none!important;color:transparent}
-body.theme-classic .yard{background:transparent!important;border:none!important;box-shadow:none!important;border-radius:0}
-body.theme-classic .yi{background:transparent!important;box-shadow:none!important}
-body.theme-classic #board{border:3px solid #333;border-radius:8px;box-shadow:0 10px 30px #0005;
-  background:#ECECEC url(board-classic.png) center center / 100% 100% no-repeat}
-body.theme-classic #ctr{background:transparent!important;border:none!important;box-shadow:none!important}
-body.theme-classic button{background:#fff;color:#222;border:2px solid #4A4A4A;font-weight:700}
-body.theme-classic select,body.theme-classic input{background:#fff;color:#222;border:2px solid #4A4A4A}
-body.theme-classic .ov{background:rgba(0,0,0,.4)}
-body.theme-classic .by,body.theme-classic .row span{color:#333}
-body.theme-classic #scene{filter:drop-shadow(0 8px 12px #0007)}
-body.theme-classic .yn .a::before{color:#333;-webkit-text-stroke:.13em #333}
-body.theme-classic .yn .b{color:#222;text-shadow:none}
+/* Classic: glass morphism — warm amber / rose palette (same structure as Glass) */
+body.theme-classic{background:linear-gradient(135deg,#3a1808,#5b2a0b,#4a0b2a,#2a1a0b);background-size:400% 400%;animation:bg 18s ease infinite}
+body.theme-classic .b1{background:radial-gradient(circle,#ff6b4d 0,#ff6b4d00 70%)}
+body.theme-classic .b2{background:radial-gradient(circle,#ffd23f 0,#ffd23f00 70%)}
+body.theme-classic .b3{background:radial-gradient(circle,#ff9f43 0,#ff9f4300 70%)}
+body.theme-classic .b4{background:radial-gradient(circle,#e85d75 0,#e85d7500 70%)}
+body.theme-classic .glass{background:rgba(255,248,230,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,220,160,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
+body.theme-classic h1{background:linear-gradient(90deg,#ff6b4d,#ffd23f,#ff9f43,#e85d75);-webkit-background-clip:text;background-clip:text}
+body.theme-classic .c{background:linear-gradient(145deg,#fff8f0,#ffe8d0);border:1px solid rgba(255,255,255,.7);border-radius:24%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#c47800}
+body.theme-classic .c.col{color:#fff;text-shadow:0 1px 3px #0006}
+body.theme-classic .yard{border-radius:16px;border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 0 20px rgba(255,255,255,.25)}
+body.theme-classic .yi{background:rgba(255,255,255,.32);box-shadow:inset 0 0 18px #fff8;border-radius:16px}
+body.theme-classic #board{border:1px solid rgba(255,220,160,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
+  background:rgba(255,248,230,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body.theme-classic #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
+body.theme-classic button{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,220,160,.4);backdrop-filter:blur(8px)}
+body.theme-classic select,body.theme-classic input{background:rgba(0,0,0,.2);color:#fff;border:1px solid rgba(255,255,255,.3)}
+body.theme-classic .ov{background:rgba(40,15,5,.45);backdrop-filter:blur(6px)}
+body.theme-classic .by,body.theme-classic .row span{color:rgba(255,255,255,.9)}
+body.theme-classic #scene{filter:drop-shadow(0 12px 10px #0009)}
+/* Classic dice: same glass face as Glass theme (player-coloured) */
+body.theme-classic .f{background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);border:2px solid #ffffffcc;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc)}
+body.theme-classic .f span{background:#fff!important;box-shadow:0 0 6px #fff8!important}
 
-/* Arena: pin-token app board (solid vivid yards, clean grid) */
-body.theme-arena{background:linear-gradient(160deg,#1a237e,#0d47a1);background-size:100% 100%;animation:none}
-body.theme-arena .b1{background:radial-gradient(circle,#DF1B22 0,#DF1B2200 70%)}
-body.theme-arena .b2{background:radial-gradient(circle,#0B8E36 0,#0B8E3600 70%)}
-body.theme-arena .b3{background:radial-gradient(circle,#F6EB14 0,#F6EB1400 70%)}
-body.theme-arena .b4{background:radial-gradient(circle,#243C8E 0,#243C8E00 70%)}
-body.theme-arena .glass{background:#ffffff;border:3px solid #243C8E;color:#1a237e;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 12px 32px #0006}
-body.theme-arena h1{background:linear-gradient(90deg,#DF1B22,#F6EB14,#0B8E36,#243C8E);-webkit-background-clip:text;background-clip:text}
-body.theme-arena .c{background:#F4F4F4;border:1px solid #4A4A4A;border-radius:2px;box-shadow:none;color:#333;font-weight:800}
-body.theme-arena .c.col{color:#fff;text-shadow:0 1px 2px #0005}
-body.theme-arena .yard{border-radius:4px;border:3px solid #fff;box-shadow:0 3px 10px #0004}
-body.theme-arena #board{border:4px solid #1a237e;border-radius:6px;box-shadow:0 14px 36px #0007;background:#ECECEC}
-body.theme-arena button{background:linear-gradient(180deg,#3855B5,#243C8E);color:#fff;border:none;font-weight:700}
-body.theme-arena select,body.theme-arena input{background:#fff;color:#1a237e;border:2px solid #243C8E}
-body.theme-arena .ov{background:rgba(13,27,74,.55)}
-body.theme-arena #ctr{border:2px solid #fff;border-radius:4px}
-body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0008)}
+/* Arena: glass morphism — cool cyan / indigo palette */
+body.theme-arena{background:linear-gradient(135deg,#061428,#0b2a5b,#0b3a4a,#1a0b3a);background-size:400% 400%;animation:bg 18s ease infinite}
+body.theme-arena .b1{background:radial-gradient(circle,#00e5ff 0,#00e5ff00 70%)}
+body.theme-arena .b2{background:radial-gradient(circle,#7c4dff 0,#7c4dff00 70%)}
+body.theme-arena .b3{background:radial-gradient(circle,#18ffff 0,#18ffff00 70%)}
+body.theme-arena .b4{background:radial-gradient(circle,#536dfe 0,#536dfe00 70%)}
+body.theme-arena .glass{background:rgba(180,220,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(120,200,255,.4);box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45);color:#fff}
+body.theme-arena h1{background:linear-gradient(90deg,#00e5ff,#7c4dff,#18ffff,#536dfe);-webkit-background-clip:text;background-clip:text}
+body.theme-arena .c{background:linear-gradient(145deg,#f0f8ff,#d0e8ff);border:1px solid rgba(255,255,255,.7);border-radius:24%;box-shadow:0 1px 3px #0004,inset 0 -2px 4px #0000001a;color:#1565c0}
+body.theme-arena .c.col{color:#fff;text-shadow:0 1px 3px #0006}
+body.theme-arena .yard{border-radius:16px;border:1px solid rgba(255,255,255,.55);box-shadow:inset 0 0 20px rgba(255,255,255,.25)}
+body.theme-arena .yi{background:rgba(255,255,255,.32);box-shadow:inset 0 0 18px #fff8;border-radius:16px}
+body.theme-arena #board{border:1px solid rgba(120,200,255,.35);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.25);
+  background:rgba(180,220,255,.10);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body.theme-arena #ctr{border-radius:8px;border:1px solid rgba(255,255,255,.5);box-shadow:inset 0 0 25px #fff6}
+body.theme-arena button{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(120,200,255,.4);backdrop-filter:blur(8px)}
+body.theme-arena select,body.theme-arena input{background:rgba(0,0,0,.2);color:#fff;border:1px solid rgba(255,255,255,.3)}
+body.theme-arena .ov{background:rgba(5,15,40,.5);backdrop-filter:blur(6px)}
+body.theme-arena .by,body.theme-arena .row span{color:rgba(255,255,255,.9)}
+body.theme-arena #scene{filter:drop-shadow(0 12px 10px #0009)}
+/* Arena dice: same glass face as Glass theme (player-coloured) */
+body.theme-arena .f{background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);border:2px solid #ffffffcc;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc)}
+body.theme-arena .f span{background:#fff!important;box-shadow:0 0 6px #fff8!important}
 
 
 
@@ -153,11 +163,7 @@ body.theme-arena #scene{filter:drop-shadow(0 10px 14px #0008)}
 .f{position:absolute;width:88px;height:88px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 28% 22%,#fff 0,var(--pc) 42%,var(--pd) 100%);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:13px;box-shadow:inset 0 0 16px #fffa,inset 0 0 28px var(--pd),0 0 14px var(--pc);border:2px solid #ffffffcc}
 /* Classic theme: soft frosted glass dice */
 /* Classic: white die, pips take player colour via --pc */
-body.theme-classic .f{background:radial-gradient(circle at 28% 22%,#ffffff 0%,#f5f5f5 55%,#e0e0e0 100%);border:2px solid #9e9e9e;box-shadow:inset 0 0 12px #fff,0 6px 14px #0005}
-body.theme-classic .f span{background:var(--pc)!important;box-shadow:inset 0 1px 2px #0006,0 0 4px var(--pc)!important}
-/* Arena: clean white die, vivid player-colour pips */
-body.theme-arena .f{background:radial-gradient(circle at 30% 25%,#ffffff 0%,#fafafa 50%,#eeeeee 100%);border:2px solid #bdbdbd;border-radius:16px;box-shadow:inset 0 0 10px #fff,0 8px 16px #0006}
-body.theme-arena .f span{background:var(--pc)!important;box-shadow:0 0 5px var(--pc)!important}
+
 .f::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.65),transparent 42%,transparent 70%,rgba(255,255,255,.25))}
 .f i{width:18px;height:18px;border-radius:50%;margin:auto;background:radial-gradient(circle at 35% 30%,#8a86b8 0,#1a1033 55%,#000 100%);box-shadow:0 0 0 2px #fff8,0 0 8px #fff9,inset -1px -1px 2px #0008}
 #scene.wait{animation:bob 1.1s ease-in-out infinite}
